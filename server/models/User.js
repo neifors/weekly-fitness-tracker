@@ -3,6 +3,7 @@ const { ObjectId } = require('mongodb')
 
 class User {
    constructor(data){
+      this.id=data.id
       this.username = data.username
       this.email = data.email
       this.password = data.password
@@ -13,26 +14,13 @@ class User {
          try {
                const db = await init()
                const usersData = await db.collection('users').find().toArray()
-               const users = usersData.map(user => new User({...user}))
+               const users = usersData.map(user => new User({...user, id: user._id }))
                res(users);
          } catch (err) {
                rej(`Error retrieving users: ${err}`)
          }
       })
    }
-
-   // static findById(id){
-   //    return new Promise(async (res, rej) => {
-   //       try {
-   //             const db= await init();
-   //             const users = await db.collection('users').findById(ObjectId)
-
-               
-   //       } catch (err) {
-   //             rej(`Error retrieving user: ${err}`)
-   //       }
-   //    })
-   // }
 
    static findByEmail(email){
       return new Promise(async (res, rej) => {
@@ -49,6 +37,26 @@ class User {
          }
       })
    }
+
+   static create(name, age){
+      return new Promise (async (resolve, reject) => {
+          try {
+              const db = await init();
+              let newuser = await db.collection('users').insertOne({ name, age })
+              let newUser = new User(newuser.ops[0]);
+              resolve (newDog);
+          } catch (err) {
+              reject('Error creating dog');
+          }
+      });
+  }
 }
+
+
+/* let result = await db.collection("users").insertOne({
+   username: req.body.username, 
+   email: req.body.email, 
+   password: req.body.password
+}) */
 
 module.exports = User
