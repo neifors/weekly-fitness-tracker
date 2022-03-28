@@ -3,6 +3,7 @@ const { ObjectId } = require('mongodb')
 
 class User {
     constructor(data){
+        this.id=data.id
         this.username = data.username
         this.email = data.email
         this.password = data.password
@@ -13,23 +14,10 @@ class User {
             try {
                 const db = await init()
                 const usersData = await db.collection('users').find().toArray()
-                const users = usersData.map(user => new User({...user}))
+                const users = usersData.map(user => new User({...user,id:user._id}))
                 res(users);
             } catch (err) {
                 rej(`Error retrieving users: ${err}`)
-            }
-        })
-    }
-
-    static findById(id){
-        return new Promise(async (res, rej) => {
-            try {
-                const db= await init();
-                const users = await db.collection('users').findById(ObjectId)
-
-                
-            } catch (err) {
-                rej(`Error retrieving user: ${err}`)
             }
         })
     }
@@ -38,7 +26,7 @@ class User {
         return new Promise(async (res, rej) => {
             try {
                 const db= await init();
-                const users = await db.collection('users').find({email:email}).toArray()
+                const users = await db.collection('users').find({email:email})
                 res(users)
                 
             } catch (err) {
