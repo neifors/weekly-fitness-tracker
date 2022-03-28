@@ -26,7 +26,6 @@ class User {
          try {
                const db= await init();
                const result = await db.collection('users').find({email: email}).toArray()
-               console.log("This is printed by models/User.js. It's the amount of users resulted of searching by email")
                console.log(result.length)
                let user = new User(result[0]);
                res(user)

@@ -5,26 +5,30 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Document</title>
+   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form id="loginCardItems" >
+    <div id="login">
+    <form id="loginform" >
         <label for="loginemail">Email:</label><br></br>
         <input id="loginemail" type="email" name="loginemail" placeholder="Enter Email"  required></input><br></br>
         <label for="loginpassword">Password:</label><br></br>
         <input type="password" id="loginpassword" name="loginpassword" placeholder="Enter Password" required></input><br></br>
         <input type="submit" value="Login">
     </form> 
+    </div>
 
-
+    <div id="reg">
     <form id="registerform">
-      <label for="registerusername">Username:</label>
-      <input type="text" id="registerusername" name="registerusername" required>
+      <label for="registerusername">Username:</label><br>
+      <input type="text" id="registerusername" name="registerusername" required><br>
       <label for="registeremail">Email:</label><br></br>
       <input id="registeremail" type="email" name="registeremail" placeholder="Enter Email"  required></input><br></br>
       <label for="registerpassword">Password:</label><br></br>
       <input type="password" id="registerpassword" name="registerpassword" placeholder="Enter Password" required></input><br></br>
-      <input type="submit" value="Login">
+      <input type="submit" value="Register">
     </form>
+    </div>
    
 </body>
 
@@ -56,7 +60,7 @@
    })
 
 
-   const loginform = document.getElementById("loginCardItems");
+   const loginform = document.getElementById("loginform");
    loginform.addEventListener("submit", async e => { 
       e.preventDefault();
       let email=document.getElementById("loginemail").value;
