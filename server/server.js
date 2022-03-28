@@ -9,8 +9,8 @@ const usersRoutes = require("./controllers/users")
 const authRoutes = require("./controllers/auth")
 
 
-// server.use("/user", usersRoutes);
-// server.use("/auth", authRoutes);
+server.use("/users", usersRoutes);
+server.use("/auth", authRoutes);
 
 server.get('/', (req, res)=>{
     res.json('Hello world')

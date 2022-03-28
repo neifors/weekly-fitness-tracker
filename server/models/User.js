@@ -21,19 +21,25 @@ class User {
         })
     }
 
-    static create({ username, email, password }){
+    static findById(id){
         return new Promise(async (res, rej) => {
             try {
+                const db= await init();
+                const users = await db.collection('users').findById(ObjectId)
+
                 
             } catch (err) {
-                rej(`Error creating user: ${err}`)
+                rej(`Error retrieving user: ${err}`)
             }
         })
     }
 
-    static findByEmail(email){
+    async findByEmail(email){
         return new Promise(async (res, rej) => {
             try {
+                const db= await init();
+                const users = await db.collection('users').findOne({email: email})
+                res.json(users)
                 
             } catch (err) {
                 rej(`Error retrieving user: ${err}`)
