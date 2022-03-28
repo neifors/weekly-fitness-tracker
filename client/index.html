@@ -27,9 +27,11 @@
          body:JSON.stringify({email:email}), 
          headers:{'Content-Type': 'application/json'
       }}
-      await fetch('http://localhost:3000/auth/login', options)
-      .then(res=>res.json())
-      .then(d=>console.log(d))
+      const res=await fetch('http://localhost:3000/auth/login', options)
+      const data=res.json()
+      console.log(data)
+        
+      
       
    })
 </script>

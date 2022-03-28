@@ -38,7 +38,7 @@ class User {
         return new Promise(async (res, rej) => {
             try {
                 const db= await init();
-                const users = await db.collection('users').find({email}).toArray()
+                const users = await db.collection('users').find({email:email}).toArray()
                 res(users)
                 
             } catch (err) {
