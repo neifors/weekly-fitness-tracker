@@ -54,25 +54,25 @@ router.post('/login', async (req, res)=>{
 
 router.post('/register', async (req, res) => {
   try {
-      const  email = req.body.email
-      const  username = req.body.user
-      const  password = req.body.password
-
       // check if the user already exists
-      const checkuser = await User.findByEmail(email)
-      if (checkuser) { res.status(400).send("Email already exists")}
+      // const checkuser = await User.findByEmail(email)
+      // const resu =  checkuser.json()
+      // console.log(resu)
+      // console.log(checkuser)
+      // if (checkuser) { 
+      //    res.status(400).send("Email already exists")
+      // } else {
+      const salt = await bcrypt.genSalt();
+      const hashed = await bcrypt.hash(req.body.password, salt)
+      const data = {username: req.body.username, email: req.body.email, password: hashed}
+      console.log(data)
+      const result = await User.create( data )
+      res.status(201).json({msg: 'User created'})
+      // }
 
-      await User.create({email,username,password}, (err,user)=>{
-        if(err) {
-          res.json(err) 
-        } else {
-         res.status(201).json({msg: 'User created'})
-        }
-      })
-    }
-    catch(err){
-      res.json(err)
-    }
+   } catch(err){
+      res.status(500).json({err});
+   }
   
 })
 
