@@ -5,13 +5,16 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 
-const User = require('../models/user');
+const User = require('../models/User');
 
 router.post('/login', async (req, res)=>{
-    const email = JSON.parse(req.body.email)
-    const password = JSON.parse(req.body.password)
+    const email = req.body.email
+   //  const password = JSON.parse(req.body.password)
     try {
+      //  console.log(req.body.email)
         const user  =  await User.findByEmail(email)
+        console.log("This is printed by controllers/auth.js")
+        console.log(user)
         if(!user){ throw new Error('No user with this email') }
       //   const cmp = await bcrypt.compare(password, user.password)
       //   if (cmp) {
@@ -25,10 +28,10 @@ router.post('/login', async (req, res)=>{
       //         text: "Auth Successful"
       //       });
       //   }
-         res.status(200).json({user})
-      }  else {
-            throw new Error("Wrong password")
-        }
+         res.status(200).json(user)
+      // }  else {
+      //       throw new Error("Wrong password")
+      // }
         
         
     } catch(err){
