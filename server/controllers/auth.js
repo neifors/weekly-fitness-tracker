@@ -30,22 +30,26 @@ router.post('/login', async (req, res)=>{
 router.post('/register', async (req, res) => {
   try {
       // check if the user already exists
-      const checkuser = await User.findByEmail(email)
-      // const resu =  checkuser.json()
-      // console.log(resu)
-      // console.log(checkuser)
+      const checkuser = await User.findByEmail(req.body.email)
+      
+      console.log(checkuser)
       if (checkuser.length!==0) { 
           res.status(400).send("Email already exists")
       } 
-      const salt = await bcrypt.genSalt();
-      const hashed = await bcrypt.hash(req.body.password, salt)
-      const data = {username: req.body.username, email: req.body.email, password: hashed}
-      console.log(data)
-      const result = await User.create( data )
-      res.status(201).json({msg: 'User created'})
+      //The code inside the catch(err) below was originally here
+      //But because our findByEmail function raises errors 
+      //for users that DONT exist..in this case the error means
+      //our user can be created!!
+      //Perhaps this is not the right way to do this?
 
    } catch(err){
-      res.status(500).json({err});
+       const salt = await bcrypt.genSalt();
+       const hashed = await bcrypt.hash(req.body.password, salt)
+       const data = {username: req.body.username, email: req.body.email, password: hashed}
+       console.log(data)
+       const result = await User.create( data )
+       res.status(201).json({msg: 'User created',newuser: result})
+      //res.status(500).json({err});
    }
   
 })

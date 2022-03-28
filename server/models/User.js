@@ -54,15 +54,15 @@ class User {
          try {
             const db = await init();
             console.log("hello I'm into create function")
-            await db.collection('users').insertOne({
+            let newuser= await db.collection('users').insertOne({
                username: data.username, 
                email: data.email, 
                password: data.password
             })
             // let newUser = new User(user.ops[0]);
             console.log("This is the user has been created into models/User.js")
-            // console.log(newUser)
-            res('user created succesfully')
+            console.log(newuser)
+            res(`user created succesfully`)
 
          } catch (err) {
             rej(`Error creating user: ${err}`);
