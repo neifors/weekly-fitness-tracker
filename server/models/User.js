@@ -34,12 +34,12 @@ class User {
         })
     }
 
-    async findByEmail(email){
+    static findByEmail(email){
         return new Promise(async (res, rej) => {
             try {
                 const db= await init();
-                const users = await db.collection('users').findOne({email: email})
-                res.json(users)
+                const users = await db.collection('users').find({email}).toArray()
+                res(users)
                 
             } catch (err) {
                 rej(`Error retrieving user: ${err}`)
@@ -48,4 +48,4 @@ class User {
     }
 }
 
-module.exports = User
+module.exports = User;
