@@ -16,8 +16,8 @@ class Habit {
          try {
                const db = await init()
                const usersData = await db.collection('habits').find({username:person}).toArray()
-               const users = usersData.map(user => new Habit({...user}))
-               res(users)
+               //const users = usersData.map(user => new Habit({...user}))
+               res(usersData)
          } catch (err) {
                rej(`Error retrieving habits for user: ${err}`)
          }

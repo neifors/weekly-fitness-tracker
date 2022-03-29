@@ -1,4 +1,4 @@
-
+var regstatus=document.getElementById("status")
 
 const registerform = document.getElementById("registerform");
 var loginStatus=document.getElementById('status')
@@ -20,38 +20,23 @@ registerform.addEventListener("submit", async e => {
          }
       }
 
-      const result = await fetch('http://localhost:3000/auth/register', options)
-      const data = await result.json()
-      console.log(data)
+      await fetch('http://localhost:3000/auth/register', options)
+      .then(res=> {
+         if (res.status==201){
+             regstatus.innerHTML=`User registered`
+         }
+         return res.json()
+       })
+       .then(d=>{
+           console.log(d)
+           return d
+       })
+
 
    })
 
-   const loginform = document.getElementById("loginform");
-   loginform.addEventListener("submit", async e => { 
-      e.preventDefault();
-      let email=document.getElementById("loginemail").value;
-      let password=document.getElementById("loginpassword").value;
 
-      let options={
-         method: 'POST',
-         body:JSON.stringify({
-            email:email, 
-            password:password
-         }), 
-         headers:{'Content-Type': 'application/json'
-      }}
-      
-      await fetch('http://localhost:3000/auth/login', options)
-        .then(res=>res.json())
-        .then(d=>{
-            console.log(d)
-            const user=d.token
-            const decoded=atob(d.token.split('.')[1])
-            console.log(decoded)
-            return d
-        })
-        .then(d=> loginStatus.innerHTML=d)
-   })
+   
 
 const regusername=document.getElementById('registerusername')
 const avail=document.getElementById('available');

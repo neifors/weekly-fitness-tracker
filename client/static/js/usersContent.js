@@ -1,2 +1,0 @@
-// renderProfilePage()
-// renderCreateHabitForm()
