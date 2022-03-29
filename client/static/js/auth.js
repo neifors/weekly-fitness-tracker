@@ -11,5 +11,7 @@ function currentEmail(){
    return email;
 }
 var intro=document.getElementById('intro')
+var userdata=document.getElementById('userdata')
 
 intro.innerHTML=currentEmail()?`Hello ${currentUser()}<br><p>Your email ${currentEmail()}</p>`:`You are not logged in`
+userdata.innerHTML=currentUser()?userdata.innerHTML:``

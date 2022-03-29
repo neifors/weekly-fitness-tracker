@@ -1,3 +1,5 @@
+
+
 const toggle =(clickedId)=>{
     let n=document.getElementById("days2")
     let val=Object.values(n.childNodes)
@@ -17,10 +19,7 @@ const toggle =(clickedId)=>{
     console.log(t,t.classList,t.parentElement,t.parentElement.previousSibling)
     t.classList.toggle('toggle')
     //prev.innerChild.classList.toggle('toggle')
-
-    
-    
-  }
+}
   let cell=document.getElementById("days2")
   let D={"Sun":0, "Mon":1, "Tue":2, "Wed":3,"Thu":4,"Fri":5,"Sat":6}
   for (let i in D){

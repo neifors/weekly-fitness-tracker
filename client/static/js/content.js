@@ -9,6 +9,67 @@ function cal(){
 }
 
 
+//Pauls code here
+document.getElementById('show').onclick = function() {
+   const items = ["Running", "Abs", "Squats", "Push ups"];
+   let select = document.createElement("select");
+   select.name = "habit";
+   select.id = "habit"
+   for (const val of items)
+   {
+       let option = document.createElement("option");
+       option.value = val;
+       option.text = val.charAt(0).toUpperCase() + val.slice(1);
+       select.appendChild(option);
+   }
+   let label = document.createElement("label");
+   label.innerHTML = "Select a habit from the list: "
+   label.htmlFor = "habit";
+   document.getElementById("list").appendChild(label).appendChild(select);
+  }
+
+  //Pauls code here
+
+function createHabitForm() {
+   const fields = [
+   ]
+}
+document.getElementById('show').onclick = function() {
+   const items = ["Running", "Abs", "Squats", "Push ups"];
+   let select = document.createElement("select");
+   select.name = "habit";
+   select.id = "habit"
+   for (const val of items)
+   {
+       let option = document.createElement("option");
+       option.value = val;
+       option.text = val.charAt(0).toUpperCase() + val.slice(1);
+       select.appendChild(option);
+   }
+   let label = document.createElement("label");
+   label.innerHTML = "Select a habit from the list: "
+   label.htmlFor = "habit";
+   document.getElementById("list").appendChild(label).appendChild(select);
+  }
+document.getElementById('show2').onclick = function() {
+ const items = ["repetitions", "kilometers", "miles", "hours", "minutes", "days"];
+ let select = document.createElement("select");
+ select.name = "unit";
+ select.id = "unit"
+ for (const val of items)
+ {
+     let option = document.createElement("option");
+     option.value = val;
+     option.text = val.charAt(0).toUpperCase() + val.slice(1);
+     select.appendChild(option);
+ }
+ let label = document.createElement("label");
+ label.innerHTML = "Select a habit from the list: "
+ label.htmlFor = "unit";
+ document.getElementById("list2").appendChild(label).appendChild(select);
+}
+
+
 function getAllhabits(){
    let url='http://localhost:3000/habits/'+localStorage.getItem('username')
    fetch(url)
@@ -29,6 +90,7 @@ function appendDog(dogData){
 
 
 function formatDogTr(dog, tr){
+   const idTd=document.createElement('td');
    const habitTd = document.createElement('td');
    const freTd = document.createElement('td');
    const unitsTd = document.createElement('td');
@@ -45,11 +107,12 @@ function formatDogTr(dog, tr){
    uptBtn.onclick = () => updateDog(dog.id, tr);
    delTd.append(delBtn);
    uptTd.append(uptBtn);
-
+   idTd.textContent=dog._id
    habitTd.textContent = dog.habitName
    freTd.textContent = dog.frequency
    unitsTd.textContent=dog.units
-
+   
+   tr.append(idTd)
    tr.append(habitTd)
    tr.append(freTd)
    tr.append(unitsTd)
