@@ -21,7 +21,6 @@ router.post('/login', async (req, res)=>{
       console.log(err);
       res.status(401).json({ err });
     }
-    
 })
 
 
@@ -30,10 +29,10 @@ router.post('/register', async (req, res) => {
       // check if the user already exists
       const checkuser = await User.findByEmail(req.body.email)
       
-      console.log(checkuser)
-      if (checkuser.length!==0) { 
-          res.status(400).send("Email already exists")
+      if (!!checkuser) { 
+          return res.status(400).send("Email already exists")
       } 
+
       //The code inside the catch(err) below was originally here
       //But because our findByEmail function raises errors 
       //for users that DONT exist..in this case the error means
@@ -41,11 +40,15 @@ router.post('/register', async (req, res) => {
       //Perhaps this is not the right way to do this?
 
    } catch(err){
+       console.log(err)
        const salt = await bcrypt.genSalt();
        const hashed = await bcrypt.hash(req.body.password, salt)
        const data = {username: req.body.username, email: req.body.email, password: hashed}
        console.log(data)
        const result = await User.create( data )
+       if (!result){
+           return res.status(500).json({msg: 'user couldnt be registered'})
+       }
        res.status(201).json({msg: 'User created',newuser: result})
       //res.status(500).json({err});
    }
