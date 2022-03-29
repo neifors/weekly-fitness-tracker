@@ -1,11 +1,8 @@
 // renderLoginForm()
 // renderRegisterForm()
-// renderProfilePage()
-// renderCreateHabitForm()
 // render404()
 // renderHomepage()
-// loginRedirect()
-// registerRedirect()
+
 
 function renderHomepage() {
    const logoWrapper = document.createElement('div');

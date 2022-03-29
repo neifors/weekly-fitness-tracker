@@ -37,25 +37,28 @@
    const registerform = document.getElementById("registerform");
    registerform.addEventListener("submit", async e => {
       e.preventDefault();
-      let username = document.getElementById("registerusername").value
-      let email = document.getElementById("registeremail").value
-      let password = document.getElementById("registerpassword").value
+      // let username = document.getElementById("registerusername").value
+      // let email = document.getElementById("registeremail").value
+      // let password = document.getElementById("registerpassword").value
 
       let options = {
          method: 'POST',
-         body: JSON.stringify({
-            username: username,
-            email: email,
-            password: password
-         }),
+         body: JSON.stringify(Object.fromEntries(new FormData(e.target))
+            // {
+            // username: username,
+            // email: email,
+            // password: password
+            // }
+         ),
          headers: {
             'Content-Type': 'application/json'
          }
       }
+      console.log(options)
 
-      const result = await fetch('http://localhost:3000/auth/register', options)
-      const data = await result.json()
-      console.log(data)
+      // const result = await fetch('http://localhost:3000/auth/register', options)
+      // const data = await result.json()
+      // console.log(data)
 
    })
 

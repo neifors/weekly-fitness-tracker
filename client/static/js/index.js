@@ -33,13 +33,13 @@ function updateMain(path){
 
 function updateContent(){
    const path = window.location.hash;
-   // if (privateRoutes.includes(path) && !!currentUser) {
-   //    window.location.hash = '#';
-   // } else if (!!privateRoutes.includes(path) && currentUser) {
-   //    window.location.hash = '#profile';
-   // } else {
+   if (privateRoutes.includes(path) && !!currentUser) {
+      window.location.hash = '#';
+   } else if (!!privateRoutes.includes(path) && currentUser) {
+      window.location.hash = '#profile';
+   } else {
       updateMain(path);
-   // }
+   }
 }
 
 
