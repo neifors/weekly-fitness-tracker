@@ -29,6 +29,7 @@ loginform.addEventListener("submit", async e => {
         .then(d=>{
             localStorage.setItem('username',d.username)
             localStorage.setItem('email',d.email)
+            window.location.href='habits.html'
         })
         
    })
