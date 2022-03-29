@@ -13,7 +13,7 @@ router.post('/login', async (req, res)=>{
         console.log("This is printed by controllers/auth.js")
         const correct= await bcrypt.compare(password, user.password.toString());
         if(correct){
-            const token= jwt.sign({ user }, 'my_secret_key2')
+            const token= jwt.sign({username:user.username,email:user.email}, 'my_secret_key2')
             console.log(token)
             return res.status(200).json({token: token,text: "Login Successful"});
         }
