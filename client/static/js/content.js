@@ -49,7 +49,18 @@ function renderLoginForm() {
    main.appendChild(signIn)
 
    const fields = [
-       {tag: 'input', attributes: {}}
+       { tag: 'input', attributes: { type: 'email', name: 'email', placeholder: 'E.g. fitnessperson@gmail.com' } },
+       { tag: 'input', attributes: { type: 'password', name: 'password', placeholder: 'Please insert password here' } },
+       { tag: 'input', attributes: { type: 'submit', value: 'Login' } }
    ]
 
+   const form = document.createElement('form');
+   fields.forEach(f => {
+      let field = document.createElement(f.tag);
+      Object.entries(f.attributes).forEach(([a, v]) => {
+         field.setAttribute(a, v);
+         form.appendChild(field);
+      })
+   })
+   
 }
