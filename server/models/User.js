@@ -1,5 +1,4 @@
 const { init } = require ('../db_config/dbconfig.js')
-const { ObjectId } = require('mongodb')
 
 class User {
    constructor(data){
@@ -75,10 +74,5 @@ class User {
 
 }
 
-/* let result = await db.collection("users").insertOne({
-   username: req.body.username, 
-   email: req.body.email, 
-   password: req.body.password
-}) */
 
 module.exports = User
