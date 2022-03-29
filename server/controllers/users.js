@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User= require('../models/User.js')
 
+
 // const { verifyToken } = require('../middleware/auth');
 
 // users index route
@@ -21,5 +22,7 @@ router.post('/', async (req, res)=> {
         res.status(500).json({err})
     }
 })
+
+
 
 module.exports =  router
