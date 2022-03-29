@@ -25,6 +25,9 @@ registerform.addEventListener("submit", async e => {
          if (res.status==201){
              regstatus.innerHTML=`User registered`
          }
+         else if(res.status==400){
+            regstatus.innerHTML=`Email already exists. Use another`
+         }
          return res.json()
        })
        .then(d=>{

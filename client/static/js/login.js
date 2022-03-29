@@ -1,6 +1,6 @@
 const loginform = document.getElementById("loginform");
-   
-   loginform.addEventListener("submit", async e => { 
+var loginStatus=document.getElementById("status")
+loginform.addEventListener("submit", async e => { 
       e.preventDefault();
       let email=document.getElementById("loginemail").value;
       let password=document.getElementById("loginpassword").value;
@@ -15,12 +15,20 @@ const loginform = document.getElementById("loginform");
       }}
       
       await fetch('http://localhost:3000/auth/login', options)
-        .then(res=>res.json())
+        .then(res=>{ 
+          if(res.status==403) {loginStatus.innerHTML=`Wrong password`}
+          else if(res.status==401) {loginStatus.innerHTML=`Email doesnt exist in our database`}
+          return res.json()
+        })
         .then(d=>{
             console.log(d)
             const decoded=atob(d.token.split('.')[1])
-            console.log(decoded)
-            return d
+            console.log(decoded,JSON.parse(decoded),typeof(decoded))
+            return JSON.parse(decoded)
         })
-        .then(d=> loginStatus.innerHTML=d)
+        .then(d=>{
+            localStorage.setItem('username',d.username)
+            localStorage.setItem('email',d.email)
+        })
+        
    })
