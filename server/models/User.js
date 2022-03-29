@@ -1,5 +1,4 @@
 const { init } = require ('../db_config/dbconfig.js')
-const { ObjectId } = require('mongodb')
 
 class User {
    constructor(data){
@@ -36,18 +35,7 @@ class User {
       })
    }
 
-//    static create(name, age){
-//       return new Promise (async (resolve, reject) => {
-//           try {
-//               const db = await init();
-//               let newuser = await db.collection('users').insertOne({ name, age })
-//               let newUser = new User(newuser.ops[0]);
-//               resolve (newDog);
-//           } catch (err) {
-//               reject('Error creating dog');
-//           }
-//       });
-//   }
+
 
    static create(data) {
       return new Promise (async (res, rej) => {
@@ -73,10 +61,5 @@ class User {
 
 }
 
-/* let result = await db.collection("users").insertOne({
-   username: req.body.username, 
-   email: req.body.email, 
-   password: req.body.password
-}) */
 
 module.exports = User
