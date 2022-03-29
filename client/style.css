@@ -1,0 +1,17 @@
+#reg {
+    display:flex;
+    justify-content:center;
+}
+#login {
+    display: flex;
+    justify-content: center;
+}
+
+#loginform{
+    border: 2px solid green;
+}
+
+#registerform {
+    margin-top: 20px;
+    border:2px solid black;
+}
