@@ -36,18 +36,19 @@ class User {
       })
    }
 
-//    static create(name, age){
-//       return new Promise (async (resolve, reject) => {
-//           try {
-//               const db = await init();
-//               let newuser = await db.collection('users').insertOne({ name, age })
-//               let newUser = new User(newuser.ops[0]);
-//               resolve (newDog);
-//           } catch (err) {
-//               reject('Error creating dog');
-//           }
-//       });
-//   }
+   static findByUsername(username){
+      return new Promise(async (res, rej) => {
+         try {
+               const db= await init();
+               const result = await db.collection('users').find({username: username}).toArray()
+               let user = new User(result[0]);
+               res(user)
+               
+         } catch (err) {
+               rej(`${username} not found: ${err}`)
+         }
+      })
+   }
 
    static create(data) {
       return new Promise (async (res, rej) => {
