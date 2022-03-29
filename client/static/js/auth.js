@@ -12,4 +12,4 @@ function currentEmail(){
 }
 var intro=document.getElementById('intro')
 
-intro.innerHTML=currentEmail()?`Hello ${currentUser()}`:`You are not logged in`
+intro.innerHTML=currentEmail()?`Hello ${currentUser()}<br><p>Your email ${currentEmail()}</p>`:`You are not logged in`

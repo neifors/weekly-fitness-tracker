@@ -12,7 +12,9 @@ router.get('/:username', async (req, res)=>{
 
 router.post('/', async (req, res)=>{
     try {
-        let data= {username: req.body.username,}
+        let data= {username: req.body.username,
+            habitName: req.body.habitName,
+            frequency: req.body.frequency,units: req.body.units}
         const newhabit = await Habit.create(data)
         res.json(newhabit)
     } catch(err){

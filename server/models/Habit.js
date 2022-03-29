@@ -6,10 +6,6 @@ class Habit {
        this.habitName = data.habitName
        this.frequency=data.frequency
        this.units=data.units
-       /*this.topStreak=data.topStreak
-       this.currentStreak=data.currentStreak
-       this.currentAmount=data.currentAmount
-       this.expectedAmount=data.expectedAmount*/
     }
     static gethabits(person){
       return new Promise(async (res, rej) => {
@@ -22,6 +18,19 @@ class Habit {
                rej(`Error retrieving habits for user: ${err}`)
          }
       })
+   }
+   static create(data){
+      return new Promise(async (res, rej) => {
+         try {
+               const db = await init()
+               const usersData = await db.collection('habits').insertOne(data).toArray()
+               //const users = usersData.map(user => new Habit({...user}))
+               res(usersData)
+         } catch (err) {
+               rej(`Error creating habits for user: ${err}`)
+         }
+      })
+
    }
    
 
