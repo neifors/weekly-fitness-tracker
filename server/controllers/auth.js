@@ -15,7 +15,7 @@ router.post('/login', async (req, res)=>{
         if(correct){
             const token= jwt.sign({ user }, 'my_secret_key2')
             console.log(token)
-            return res.status(200).json({user: user,token: token,text: "Auth Successful"});
+            return res.status(200).json({token: token,text: "Login Successful"});
         }
         else return res.status(403).json("Wrong password") //unauthorised http response
     } catch(err){
