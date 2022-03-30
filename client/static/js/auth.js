@@ -14,9 +14,8 @@ async function requestRegistration(e) {
       const data = await result.json()
 
       // HOW IS THIS DATA STRUCTURE?????
-      // if(data.err){ throw Error(data.err) }
+      if(!!data.newuser){  throw new Error("Couldn't create user") }
 
-      //if not error
       requestLogin(e);
       
    } catch(err) {
@@ -38,10 +37,7 @@ async function requestLogin(e){
    
       const result = await fetch('http://localhost:3000/auth/login', options)
       const data = await result.json()
-
-      // HOW IS THIS DATA STRUCTURE?????
-      // if (!data.success) { throw new Error('Login not authorised'); }
-      // login(data.token);      
+      login(data);   
       
    } catch(err) {
       console.warn(err);
@@ -50,11 +46,13 @@ async function requestLogin(e){
 
 // We need to decode the token and get the username and the token itself to save it into the local storage
 // Then, redirect to the user profile =)
-function login(token){
-   // const user = jwt_decode(token);
-   // localStorage.setItem("token", token);
-   // localStorage.setItem("username", user.username);
-   // window.location.hash = '#profile';
+function login(data){
+   const token = data.token;
+   const user = atob(token.split('.')[1])
+   console.log(decode)
+   localStorage.setItem("token", token);
+   localStorage.setItem("username", user.username);
+   window.location.hash = '#profile';
 }
 
 function logout(){
@@ -74,3 +72,8 @@ function loginRedirect(){
 function registerRedirect(){
    window.location.hash = '#register'
 }
+
+function habitFormRedirect(){
+   window.location.hash = '#create'
+}
+

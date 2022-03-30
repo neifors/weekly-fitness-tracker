@@ -5,6 +5,7 @@ class User {
       this.username = data.username
       this.email = data.email
       this.password = data.password
+      this.habits=[]
    }
    
    static get all(){
@@ -48,7 +49,6 @@ class User {
          }
       })
    }
-
 
    static create(data) {
       return new Promise (async (res, rej) => {

@@ -1,4 +1,3 @@
-
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
@@ -28,13 +27,8 @@ router.post('/login', async (req, res)=>{
 
 router.post('/register', async (req, res) => {
   try {
-      // check if the user already exists
-      const checkuser= await User.findByUsername(req.body.username)
-      if (!!checkuser) { 
-          return res.status(400).send("Username already exists")
-      } 
       const checkemail = await User.findByEmail(req.body.email)
-      if(!!checkemail) {
+      if(checkemail) {
           return res.status(400).send("Email already exists")
       }
 
@@ -59,3 +53,5 @@ router.post('/register', async (req, res) => {
    }
   
 })
+
+module.exports=router;
