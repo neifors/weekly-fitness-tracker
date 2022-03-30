@@ -2,4 +2,5 @@ body {
     display:flex;
     border:1px dotted black;
     justify-content: center;
+    flex-direction: column;
 }

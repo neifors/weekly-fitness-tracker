@@ -23,7 +23,7 @@ class Habit {
       return new Promise(async (res, rej) => {
          try {
                const db = await init()
-               const usersData = await db.collection('habits').insertOne(data).toArray()
+               const usersData = await db.collection('habits').insertOne(data)
                //const users = usersData.map(user => new Habit({...user}))
                res(usersData)
          } catch (err) {

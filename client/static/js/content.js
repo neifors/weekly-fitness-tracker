@@ -8,6 +8,33 @@ function cal(){
    window.location.href='calendar.html'
 }
 
+let addExer=document.querySelector('#addhabit')
+addExer.addEventListener('submit', async e =>{
+   e.preventDefault();
+   let habit=document.getElementById('habits').value;
+   let fre=document.getElementById('fre').value;
+   let units=document.getElementById('units').value;
+   console.log(habit,fre,units)
+   let options={
+      method: 'POST',
+      body: JSON.stringify({
+         username: localStorage.getItem('username'),
+         habitName:habit,
+         frequency: fre,
+         units: units
+      }),
+      headers: {
+         'Content-Type': 'application/json'
+      }
+   }
+   await fetch('http://localhost:3000/habits', options)
+      .then(res=> {
+         console.log(res)
+      })
+  
+
+})
+
 
 //Pauls code here
 document.getElementById('show').onclick = function() {
