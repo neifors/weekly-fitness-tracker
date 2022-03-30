@@ -22,4 +22,22 @@ router.post('/', async (req, res)=>{
     }
 })
 
+router.delete('/:id', async (req, res)=>{
+    try {
+        const habits = await Habit.delete(req.params.id)
+        res.json(habits)
+    } catch(err) {
+        res.status(500).json({err})
+    }
+})
+
+router.patch('/:id', async (req, res)=>{
+    try {
+        const habits = await Habit.delete(req.params.id)
+        res.json(habits)
+    } catch(err) {
+        res.status(500).json({err})
+    }
+})
+
 module.exports=router;

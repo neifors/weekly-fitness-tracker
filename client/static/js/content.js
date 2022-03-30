@@ -1,7 +1,7 @@
 // renderLoginForm()
 // renderRegisterForm()
 // render404()
-renderHomepage()
+//renderHomepage()
 getAllhabits()
 
 function cal(){
@@ -115,12 +115,30 @@ function appendDog(dogData){
    dogsList.append(newRow);
 };
 
+function deleteHabit(id,tr){
+   fetch(`http://localhost:3000/habits/${id}`, { method: 'DELETE' })
+   .then(res=>console.log(res.json()))
+}
+function updateHabit(id, tr){
+   const options = { 
+       method: 'PATCH',
+   };
+   fetch(`http://localhost:3000/habits/${id}`, options)
+       .then(r => r.json())
+       .then(data => {
+           const { dog } = data
+           tr.querySelectorAll('td')[1].textContent = dog.age
+       })
+       .catch(console.warn)
+}
 
 function formatDogTr(dog, tr){
    const idTd=document.createElement('td');
    const habitTd = document.createElement('td');
    const freTd = document.createElement('td');
    const unitsTd = document.createElement('td');
+   const startD =document.createElement('td')
+   const endD =document.createElement('td')
    const delTd = document.createElement('td');
    const uptTd = document.createElement('td');
 
@@ -130,19 +148,23 @@ function formatDogTr(dog, tr){
    uptBtn.setAttribute('class', 'update')
    delBtn.textContent = 'X';
    uptBtn.textContent = '+';
-   delBtn.onclick = () => deleteDog(dog.id, tr);
-   uptBtn.onclick = () => updateDog(dog.id, tr);
+   delBtn.onclick = () => deleteHabit(dog._id, tr);
+   uptBtn.onclick = () => updateHabit(dog._id, tr);
    delTd.append(delBtn);
    uptTd.append(uptBtn);
    idTd.textContent=dog._id
    habitTd.textContent = dog.habitName
    freTd.textContent = dog.frequency
    unitsTd.textContent=dog.units
+   startD.textContent=dog.startDate
+   endD.textContent=dog.finishDate
    
    tr.append(idTd)
    tr.append(habitTd)
    tr.append(freTd)
    tr.append(unitsTd)
+   tr.append(startD)
+   tr.append(endD)
    tr.append(delTd)
    tr.append(uptTd)
 
