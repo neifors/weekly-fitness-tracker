@@ -122,6 +122,8 @@ function deleteHabit(id,tr){
 function updateHabit(id, tr){
    const options = { 
        method: 'PATCH',
+       headers: {'Content-Type': 'application/json' },
+       body: JSON.stringify({habitName: 'Dancing'})
    };
    fetch(`http://localhost:3000/habits/${id}`, options)
        .then(r => r.json())

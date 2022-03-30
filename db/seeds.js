@@ -15,4 +15,8 @@ db.habits.insertMany([
     {username: "paul", habitName: "bench press", frequency: 2, units:'10 reps'},
 ])
 
-
+/*db.c20160712.updateOne(
+    { "Attribute" : "good" }, 
+    { $set: {"Type" : "DVD", "Title" : "Matrix, The", "Released" : 1999, "Genre" : "Action" } },
+    { upsert: true }
+);*/

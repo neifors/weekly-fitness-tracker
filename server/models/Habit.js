@@ -13,6 +13,10 @@ class Habit {
        this.units=data.units
        this.startDate = start
        this.finishDate= finish
+       this.notes= data.notes
+       this.currentStreak=0
+       this.targetStreak=data.target
+
     }
     static gethabits(person){
       return new Promise(async (res, rej) => {
@@ -54,15 +58,17 @@ class Habit {
 
    }
 
-    static update(data){
+    static update(id,data){
       return new Promise(async (res, rej) => {
          try {
                const db = await init()
-               const usersData = await db.collection('habits').deleteOne({"_id": ObjectId(data)})
+               console.log(data,data._id)
+               const usersData = await db.collection('habits').updateOne({"_id": ObjectId(id)},
+               { $set: { ...data} })
                //const users = usersData.map(user => new Habit({...user}))
                res(usersData)
          } catch (err) {
-               rej(`Error deleting habit for user: ${err}`)
+               rej(`Error updating habit for user: ${err}`)
          }
       })
 

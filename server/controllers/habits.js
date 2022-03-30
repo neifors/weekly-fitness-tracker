@@ -33,7 +33,8 @@ router.delete('/:id', async (req, res)=>{
 
 router.patch('/:id', async (req, res)=>{
     try {
-        const habits = await Habit.delete(req.params.id)
+        const habits = await Habit.update(req.params.id,req.body)
+        console.log(req.body)
         res.json(habits)
     } catch(err) {
         res.status(500).json({err})
