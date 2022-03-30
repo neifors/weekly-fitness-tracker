@@ -50,11 +50,17 @@ function renderHabitsList(h) {
 }
 
 
-// function renderHabit(h){
-//    main.innerHTML = '';
+function renderHabit(h){
+   main.innerHTML = '';
 
+   const backButton = document.createElement('button')
+   backButton.id ="bckbttn"
+   backButton.textContent = "Back"
+   backButton.onclick = profileRedirect;
 
-// }
+   main.appendChild(backButton)
+
+}
 
 
 async function getUserHabits(username){
@@ -124,23 +130,23 @@ function renderCreateHabitForm(){
    newHabitForm.appendChild(quantityLabel)
    newHabitForm.appendChild(quantity)
       
-   const unitsSelect = document.createElement('select')
-   unitsSelect.id = "units-select"
-   unitsSelect.name = "units"
+   // const unitsSelect = document.createElement('select')
+   // unitsSelect.id = "units-select"
+   // unitsSelect.name = "units"
 
-   const units = ["times", "kilometers", "miles", "hours", "minutes", "days"];
-   for (const val of units) {
-      let opt = document.createElement("option");
-      opt.value = val;
-      opt.text = val.charAt(0).toUpperCase() + val.slice(1);
-      unitsSelect.appendChild(opt);
-   }
-   let unitsLabel = document.createElement("label");
-   unitsLabel.htmlFor = "units-select";
-   unitsLabel.textContent = "Select units: "
+   // const units = ["times", "kilometers", "miles", "hours", "minutes", "days"];
+   // for (const val of units) {
+   //    let opt = document.createElement("option");
+   //    opt.value = val;
+   //    opt.text = val.charAt(0).toUpperCase() + val.slice(1);
+   //    unitsSelect.appendChild(opt);
+   // }
+   // let unitsLabel = document.createElement("label");
+   // unitsLabel.htmlFor = "units-select";
+   // unitsLabel.textContent = "Select units: "
       
-   newHabitForm.appendChild(unitsLabel)
-   newHabitForm.appendChild(unitsSelect)
+   // newHabitForm.appendChild(unitsLabel)
+   // newHabitForm.appendChild(unitsSelect)
 
    const notes = document.createElement("textarea")
    notes.id ="notes";
@@ -153,6 +159,38 @@ function renderCreateHabitForm(){
    newHabitForm.appendChild(notesLabel)
    newHabitForm.appendChild(notes)
 
+   const submitHabit = document.createElement("input");
+   submitHabit.type = "submit"
+   submitHabit.id = "submit-habit"
+   submitHabit.textContent = "Create Habit"
+
+   newHabitForm.appendChild(submitHabit);
+
+   newHabitForm.addEventListener('submit', requestPostHabit)
+
    main.appendChild(newHabitForm)
 
+}
+
+async function requestPostHabit(e){
+   e.preventDefault();
+
+   const habit = ""
+
+   let options = {
+      method: 'POST',
+      body: JSON.stringify({
+         username: currentUser(),
+         habitName: habit,
+         frequency: e.target["quantity"].value,
+         notes: e.target["notes"].value
+      }),
+      headers: {
+         'Content-Type': 'application/json'
+      }
+   }
+
+   const newHabit = await fetch('http://localhost:3000/habits', options);
+   const data = await newHabit.json()
+   return data;
 }
