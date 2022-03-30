@@ -5,6 +5,7 @@ class User {
       this.username = data.username
       this.email = data.email
       this.password = data.password
+      this.habits=[]
    }
    
    static get all(){
@@ -35,7 +36,19 @@ class User {
       })
    }
 
-
+   static findByUsername(username){
+      return new Promise(async (res, rej) => {
+         try {
+               const db= await init();
+               const result = await db.collection('users').find({username: username}).toArray()
+               let user = new User(result[0]);
+               res(user)
+               
+         } catch (err) {
+               rej(`${username} not found: ${err}`)
+         }
+      })
+   }
 
    static create(data) {
       return new Promise (async (res, rej) => {
