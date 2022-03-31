@@ -94,7 +94,8 @@ function renderRegisterForm() {
    main.appendChild(backBttn)
 
    const fields = [
-      { tag: 'input', attributes: { type: 'text', name: 'username', placeholder: 'Create a username' } },
+      { tag: 'input', attributes: { type: 'text', id: 'register-input-username', name: 'username', placeholder: 'Create a username' } },
+      { tag: 'p', attributes: { id: "username-error-message"}},
       { tag: 'input', attributes: { type: 'email', name: 'email', placeholder: 'Your email E.g. fitnessperson@gmail.com' } },
       { tag: 'input', attributes: { type: 'password', name: 'password', placeholder: 'Create a password' } },
       { tag: 'input', attributes: { type: 'password', name: 'passwordConfirmation', placeholder: 'Confirm Password' } },
@@ -111,8 +112,39 @@ function renderRegisterForm() {
       })
    })
 
-   form.addEventListener('submit', requestRegistration)
+   form.addEventListener('submit', requestRegistration);
    main.appendChild(form);
+
+   const errMsg = document.getElementById('username-error-message')
+   const input = document.getElementById("register-input-username")
+   input.addEventListener('input', async e =>{
+      let userN = document.getElementById("register-input-username").value
+      let options = {
+         method: 'POST',
+         body: JSON.stringify({
+            username: userN
+         }),
+         headers: {
+            'Content-Type': 'application/json'
+         }
+      }
+      await fetch('http://localhost:3000/users', options)
+         .then(res=> {
+            if (res.status==500){
+               errMsg.textContent=`Username ${userN} is available`
+            }
+            else {
+               errMsg.textContent=`Username ${userN} is taken.`
+            }
+            return res.json()
+         })
+         .then(d=>{
+               console.log(d)
+               return d
+         })
+
+   })
+
 
    const question = document.createElement('h4');
    question.id = 'already-have-account';
