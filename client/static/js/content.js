@@ -1,27 +1,27 @@
-// renderLoginForm()
-// renderRegisterForm()
-// render404()
-//renderHomepage()
+
+
 getAllhabits()
 
 function cal(){
    window.location.href='calendar.html'
 }
 
+
+
 let addExer=document.querySelector('#addhabit')
 addExer.addEventListener('submit', async e =>{
    e.preventDefault();
    let habit=document.getElementById('habits').value;
    let fre=document.getElementById('fre').value;
-   let units=document.getElementById('units').value;
-   console.log(habit,fre,units)
+   let note=document.getElementById('note').value;
+   console.log(habit,fre,note)
    let options={
       method: 'POST',
       body: JSON.stringify({
          username: localStorage.getItem('username'),
          habitName:habit,
          frequency: fre,
-         units: units
+         note: note
       }),
       headers: {
          'Content-Type': 'application/json'
@@ -35,84 +35,22 @@ addExer.addEventListener('submit', async e =>{
 
 })
 
-
-//Pauls code here
-document.getElementById('show').onclick = function() {
-   const items = ["Running", "Abs", "Squats", "Push ups"];
-   let select = document.createElement("select");
-   select.name = "habit";
-   select.id = "habit"
-   for (const val of items)
-   {
-       let option = document.createElement("option");
-       option.value = val;
-       option.text = val.charAt(0).toUpperCase() + val.slice(1);
-       select.appendChild(option);
-   }
-   let label = document.createElement("label");
-   label.innerHTML = "Select a habit from the list: "
-   label.htmlFor = "habit";
-   document.getElementById("list").appendChild(label).appendChild(select);
-  }
-
-  //Pauls code here
-
-function createHabitForm() {
-   const fields = [
-   ]
-}
-document.getElementById('show').onclick = function() {
-   const items = ["Running", "Abs", "Squats", "Push ups"];
-   let select = document.createElement("select");
-   select.name = "habit";
-   select.id = "habit"
-   for (const val of items)
-   {
-       let option = document.createElement("option");
-       option.value = val;
-       option.text = val.charAt(0).toUpperCase() + val.slice(1);
-       select.appendChild(option);
-   }
-   let label = document.createElement("label");
-   label.innerHTML = "Select a habit from the list: "
-   label.htmlFor = "habit";
-   document.getElementById("list").appendChild(label).appendChild(select);
-  }
-document.getElementById('show2').onclick = function() {
- const items = ["repetitions", "kilometers", "miles", "hours", "minutes", "days"];
- let select = document.createElement("select");
- select.name = "unit";
- select.id = "unit"
- for (const val of items)
- {
-     let option = document.createElement("option");
-     option.value = val;
-     option.text = val.charAt(0).toUpperCase() + val.slice(1);
-     select.appendChild(option);
- }
- let label = document.createElement("label");
- label.innerHTML = "Select a habit from the list: "
- label.htmlFor = "unit";
- document.getElementById("list2").appendChild(label).appendChild(select);
-}
-
-
 function getAllhabits(){
    let url='http://localhost:3000/habits/'+localStorage.getItem('username')
    fetch(url)
        .then(r => r.json())
-       .then(appendDogs)
+       .then(appendHabits)
        .catch(console.warn)
 };
-function appendDogs(data){
-   data.forEach(appendDog);
+function appendHabits(data){
+   data.forEach(appendHabit);
 };
 
-function appendDog(dogData){
-   const dogsList = document.querySelector('table');
+function appendHabit(habitData){
+   const habitsList = document.querySelector('table');
    const newRow = document.createElement('tr');
-   const dogLi = formatDogTr(dogData, newRow)
-   dogsList.append(newRow);
+   const habitLi = formatHabitTr(habitData, newRow)
+   habitsList.append(newRow);
 };
 
 function deleteHabit(id,tr){
@@ -134,13 +72,14 @@ function updateHabit(id, tr){
        .catch(console.warn)
 }
 
-function formatDogTr(dog, tr){
+function formatHabitTr(habit, tr){
+   let habitInfo=document.getElementById('habitInfo')
    const idTd=document.createElement('td');
    const habitTd = document.createElement('td');
    const freTd = document.createElement('td');
-   const unitsTd = document.createElement('td');
    const startD =document.createElement('td')
    const endD =document.createElement('td')
+   const curr=document.createElement('td')
    const delTd = document.createElement('td');
    const uptTd = document.createElement('td');
 
@@ -150,74 +89,50 @@ function formatDogTr(dog, tr){
    uptBtn.setAttribute('class', 'update')
    delBtn.textContent = 'X';
    uptBtn.textContent = '+';
-   delBtn.onclick = () => deleteHabit(dog._id, tr);
-   uptBtn.onclick = () => updateHabit(dog._id, tr);
+   delBtn.onclick = () => deleteHabit(habit._id, tr);
+   uptBtn.onclick = () => updateHabit(habit._id, tr);
    delTd.append(delBtn);
    uptTd.append(uptBtn);
-   idTd.textContent=dog._id
-   habitTd.textContent = dog.habitName
-   freTd.textContent = dog.frequency
-   unitsTd.textContent=dog.units
-   startD.textContent=dog.startDate
-   endD.textContent=dog.finishDate
+   idTd.textContent=habit._id
+   habitTd.textContent = habit.habitName
+   freTd.textContent = habit.frequency
+   startD.textContent=habit.startDate
+   endD.textContent=habit.finishDate
+   curr.textContent=habit.currentStreak
    
    tr.append(idTd)
    tr.append(habitTd)
    tr.append(freTd)
-   tr.append(unitsTd)
    tr.append(startD)
    tr.append(endD)
+   tr.append(curr)
    tr.append(delTd)
    tr.append(uptTd)
+   tr.addEventListener('click', async e =>{
+      //habitInfo.remove()
+      //habitInfo.remove(habitInfo.firstElementChild);
+      //console.log(dog,habitInfo.firstElementChild)
+      habitInfo.append(createCard(habit))
+   })
 
    return tr
 }
 
-function renderHomepage() {
-   let main=document.querySelector('body')
-   const logoWrapper = document.createElement('div');
-   logoWrapper.id = "logo-wrapper"
+function createCard(habit){
+   let h2=document.createElement('h2')
+   h2.textContent=habit.habitName
+   let form=document.createElement('form')
+   let textIn=document.createElement('input')
+   textIn.value=habit.log
+   const newDiv = document.createElement("div");
+   const newLabel=document.createElement("label")
+   newDiv.appendChild(h2);
+   newDiv.appendChild(newLabel)
+   newDiv.appendChild(textIn)
 
-   const logo = document.createElement('img');
-   logo.id = "homepage-logo"
-
-   logoWrapper.appendChild(logo)
-
-   const buttonsWrapper = document.createElement('div');
-   buttonsWrapper.id = "buttons-wrapper"
-
-   const loginButton = document.createElement('button');
-   loginButton.id = "login-button"
-   loginButton.textContent = 'Login'
-   // loginButton.onclick = loginRedirect;
-
-   const question = document.createElement('h3');
-   question.id = "question"
-   question.textContent = "Don't you have an account yet?"
-
-   const registerButton = document.createElement('button');
-   registerButton.id = "register-button";
-   registerButton.textContent = "Register";
-   // registerButton.onclick = registerRedirect;
-
-   buttonsWrapper.appendChild(loginButton);
-   buttonsWrapper.appendChild(question);
-   buttonsWrapper.appendChild(registerButton);
-
-   main.appendChild(logoWrapper)
-   main.appendChild(buttonsWrapper)
-
-}
-
-
-function renderLoginForm() {
-   const signIn = document.createElement('h2')
-   signIn.id = 'signin-title'
-   signIn.textContent = 'Sign in Below'
-   main.appendChild(signIn)
-
-   const fields = [
-       {tag: 'input', attributes: {}}
-   ]
-
+   newLabel.textContent=`Frequency: ${habit.frequency}`
+   form.appendChild(newDiv)
+   //const newContent = document.createTextNode("Hi there and greetings!");
+   
+   return form
 }

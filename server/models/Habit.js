@@ -2,22 +2,27 @@ const { init } = require ('../db_config/dbconfig.js')
 const { ObjectId } = require('mongodb')
 let now= new Date().getTime()
 let week1=now+(3600*24*7*1000)
-let start= new Date(now).toUTCString().slice(0,16)
-let finish=new Date(week1).toUTCString().slice(0,16)
+let start= new Date(now).toUTCString()
+let finish=new Date(week1).toUTCString()
+
+function canModify(now){
+   let n=now.getTime()
+}
+
 class Habit {
     constructor(data){
        this._id=data._id
        this.username=data.username
        this.habitName = data.habitName
-       this.frequency=data.frequency
-       this.units=data.units
+       this.frequency=data.frequency//days of week
+       this.log=[]
        this.startDate = start
        this.finishDate= finish
-       this.notes= data.notes
+       this.note= data.note
        this.currentStreak=0
-       this.targetStreak=data.target
-
-    }
+       this.complete=false;
+       this.outOfWeek=false;
+   }
     static gethabits(person){
       return new Promise(async (res, rej) => {
          try {

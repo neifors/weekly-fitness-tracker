@@ -18,19 +18,17 @@
     <tr>
         <th>Id</th>
         <th>Habit</th>
-        <th>Frequency</th>
-        <th>Units</th>
-        <th>Date</th>
-        <th>Start</th>
-        <th>End</th>
+        <th>Frequency(no of days)</th>
+        <th>Week start</th>
+        <th>Week end</th>
         <th>Current streak</th>
     </tr>
 </table>
 <form id="addhabit">
 <label for="cars">Choose a Habit:</label>
 <select id="habits" name="habits">
-  <option value="press ups">Press ups</option>
-  <option value="squats">Squats</option>
+  <option value="Press ups">Press ups</option>
+  <option value="Squats">Squats</option>
   <option value="running">Running</option>
   <option value="cycling">Cycling</option>
 </select>
@@ -40,35 +38,20 @@
   <option value="2">2</option>
   <option value="3">3</option>
   <option value="4">4</option>
+  <option value="5">5</option>
+  <option value="6">6</option>
+  <option value="7">7</option>
 </select>
-<select id="units" name="units">
-    <option value="miles">miles</option>
-    <option value="reps">reps</option>
-    <option value="kms">km</option>
-</select>
+<input id="note" type="text" placeholder="note">
 <input type="submit">
 </form>
 
 <button onclick="cal()">Calendar</button>
-<main>
-<!-- Pauls code below-->
-<div id="list"></div>
-<br>
-<div>
-<button id="show">Show the list</button>
+
+<div id="habitInfo">
 </div>
 
-<div id="list"></div>
-    <br>
-    <div>
-    
-    </div>
-    <div id="list2"></div>
-    <br>
-    <div>
-    <button id="show2">Show habits</button>
-    </div>
-</main>
+</div>
 </div>
     
 </body>
