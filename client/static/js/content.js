@@ -2,8 +2,15 @@ function renderHomepage() {
    const logoWrapper = document.createElement('div');
    logoWrapper.id = "logo-wrapper"
 
+   const logo2 = document.createElement('img');
+   logo2.id = "homepage-logo2"
+   logo2.src = "https://i.ibb.co/RDZffjN/habits.png"
+
+   logoWrapper.appendChild(logo2)
+
    const logo = document.createElement('img');
    logo.id = "homepage-logo"
+   logo.src = "https://i.ibb.co/SrcQGYb/logo.png"
 
    logoWrapper.appendChild(logo)
 
@@ -17,7 +24,7 @@ function renderHomepage() {
 
    const question = document.createElement('h3');
    question.id = "question"
-   question.textContent = "Don't you have an account yet?"
+   question.textContent = "Don't have an account yet?"
 
    const registerButton = document.createElement('button');
    registerButton.id = "register-button";
@@ -34,6 +41,14 @@ function renderHomepage() {
 
 
 function renderLoginForm() {
+   const backBttn = document.createElement('button')
+   backBttn.className = "back-button"
+   backBttn.textContent = "Back"
+   backBttn.onclick = e => window.location.hash = "#";
+
+   main.appendChild(backBttn)
+
+
    const signIn = document.createElement('h3')
    signIn.id = 'signin-title'
    signIn.textContent = 'Sign in Below'
@@ -47,6 +62,7 @@ function renderLoginForm() {
    ]
 
    const form = document.createElement('form');
+   form.id = "login-form"
    fields.forEach(f => {
       let field = document.createElement(f.tag);
       Object.entries(f.attributes).forEach(([a, v]) => {
@@ -70,6 +86,13 @@ function renderLoginForm() {
 }
 
 function renderRegisterForm() {
+   const backBttn = document.createElement('button')
+   backBttn.className = "back-button"
+   backBttn.textContent = "Back"
+   backBttn.onclick = e => window.location.hash = "#";
+
+   main.appendChild(backBttn)
+
    const fields = [
       { tag: 'input', attributes: { type: 'text', name: 'username', placeholder: 'Create a username' } },
       { tag: 'input', attributes: { type: 'email', name: 'email', placeholder: 'Your email E.g. fitnessperson@gmail.com' } },

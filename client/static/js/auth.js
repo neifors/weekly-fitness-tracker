@@ -38,7 +38,14 @@ async function requestLogin(e){
       console.log(options)
       const result = await fetch('http://localhost:3000/auth/login', options)
       const data = await result.json()
-      console.log(data)
+      if (data.err){
+         const msg = document.createElement('p')
+         msg.id = 'error-login'
+         msg.textContent ="Email and password doesn't match"
+         msg.style = "color:red;"
+
+         main.append(msg)
+      }
       login(data);   
       
    } catch(err) {

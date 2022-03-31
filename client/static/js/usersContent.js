@@ -75,7 +75,7 @@ async function updateHabit(h){
 
 
    const options = {
-      method: 'PATCH',
+      method: 'PUT',
       body: JSON.stringify({
          today: new Date().getTime() 
       }),

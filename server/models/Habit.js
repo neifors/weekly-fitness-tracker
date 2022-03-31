@@ -78,33 +78,37 @@ class Habit {
                const habitToUpdate = await this.getHabitById(id)
                let dataToUpdate = {}
                if (data.today > habitToUpdate.finishDate){ 
-                     dataToUpdate = { outOfWeek: true }       
+                     dataToUpdate = JSON.stringify({ outOfWeek: true })       
                } else {
                      if( habitToUpdate.currentStreak+1 > habitToUpdate.topStreak && habitToUpdate.currentStreak+1 === habitToUpdate.frequency){
                         
-                        dataToUpdate = {
+                        dataToUpdate = JSON.stringify({
                               currentStreak: habitToUpdate.currentStreak+1,
                               topStreak : habitToUpdate.currentStreak+1,
                               complete : true
-                        }
+                        })
 
                      } else if (habitToUpdate.currentStreak+1 > habitToUpdate.topStreak && habitToUpdate.currentStreak+1 < habitToUpdate.frequency ) {
                         
-                        dataToUpdate = {
+                        dataToUpdate = JSON.stringify({
                               currentStreak: habitToUpdate.currentStreak+1,
                               topStreak : habitToUpdate.currentStreak+1,
-                        }
+                        })
 
                      } else if ( habitToUpdate.currentStreak+1 <= habitToUpdate.topStreak ) {
                         
-                        dataToUpdate = {
+                        dataToUpdate = JSON.stringify({
                               currentStreak: habitToUpdate.currentStreak+1
-                        }
+                        })
                      }
                }
                console.log(dataToUpdate)
 
-               const usersData = await db.collection('habits').updateOne({"_id": ObjectId(id)},{ $set: {...dataToUpdate} })
+               const usersData = await db.collection('habits').findOneAndUpdate(
+                     { _id: ObjectId(id)},
+                     { $set: dataToUpdate },
+                     { returnDocument : "after"}
+                     )
                res(usersData)
 
          } catch (err) {

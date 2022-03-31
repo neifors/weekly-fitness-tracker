@@ -51,14 +51,14 @@ router.delete('/:id', async (req, res)=>{
     }
 })
 
-router.patch('/:id', async (req, res)=>{
+router.put('/:id', async (req, res)=>{
     try {
         console.log(req.params.id,req.body)
         const habits = await Habit.update(req.params.id,req.body)
         console.log(req.body)
-        res.json(habits)
+        res.status(201).json(habits)
     } catch(err) {
-        res.status(500).json({err})
+        res.status(422).json({err})
     }
 })
 
