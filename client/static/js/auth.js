@@ -9,12 +9,13 @@ async function requestRegistration(e) {
             'Content-Type': 'application/json'
          }
       }
+      console.log(options)
 
       const result = await fetch('http://localhost:3000/auth/register', options)
       const data = await result.json()
-
+      console.log(data)
       // HOW IS THIS DATA STRUCTURE?????
-      if(!!data.newuser){  throw new Error("Couldn't create user") }
+      if(!data.msg){  throw new Error("Couldn't create user") }
 
       requestLogin(e);
       
@@ -34,9 +35,17 @@ async function requestLogin(e){
             'Content-Type': 'application/json'
          }
       }
-   
+      console.log(options)
       const result = await fetch('http://localhost:3000/auth/login', options)
       const data = await result.json()
+      if (data.err){
+         const msg = document.createElement('p')
+         msg.id = 'error-login'
+         msg.textContent ="Email and password doesn't match"
+         msg.style = "color:red;"
+
+         main.append(msg)
+      }
       login(data);   
       
    } catch(err) {
@@ -48,8 +57,8 @@ async function requestLogin(e){
 // Then, redirect to the user profile =)
 function login(data){
    const token = data.token;
-   const user = atob(token.split('.')[1])
-   console.log(decode)
+   let user = atob(token.split('.')[1])
+   user = JSON.parse(user)
    localStorage.setItem("token", token);
    localStorage.setItem("username", user.username);
    window.location.hash = '#profile';
@@ -61,19 +70,30 @@ function logout(){
 }
 
 function currentUser(){
-   const username = localStorage.getItem('username')
-   return username;
+   try{
+      const username = localStorage.getItem('username')
+      return username;
+   }catch(err){
+      return null
+   }
 }
 
 function loginRedirect(){
+   main.innerHTML = '';
    window.location.hash = '#login';
 }
 
 function registerRedirect(){
+   main.innerHTML = '';
    window.location.hash = '#register'
 }
 
 function habitFormRedirect(){
+   main.innerHTML = '';
    window.location.hash = '#create'
 }
 
+function profileRedirect(){
+   main.innerHTML = '';
+   window.location.hash = "#profile"
+}
