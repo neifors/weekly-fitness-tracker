@@ -51,6 +51,12 @@ main div#buttons-wrapper h3#question {
    font-size: 30px;
 }
 
-/* form#login-form {
+form#login-form {
+ display: flex;
+ flex-direction: column;
+}
 
-} */
+form#register-form {
+   display: flex;
+   flex-direction: column;
+}

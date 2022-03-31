@@ -24,8 +24,6 @@ async function renderProfilePage() {
    habitsWrapper.id = "habits-wrapper";
 
    const habits = await getUserHabits(currentUser());
-   console.log(habits)
-
    if (habits) { habits.forEach(h => {renderHabitsList(h,habitsWrapper)}) }
    
    main.appendChild(topDiv);
@@ -36,11 +34,10 @@ async function renderProfilePage() {
 function renderHabitsList(h, habitsWrapper) {
       const card = document.createElement('div');
       card.className = "habit-card";
-      // card.onclick = renderHabit(h);
 
-      const title = document.createElement('p')
+      const title = document.createElement('h3')
       title.className = "habit-card-title"
-      title.textContent = h.habitName
+      title.textContent = h.habitName.charAt(0).toUpperCase() + h.habitName.slice(1)
       
       const freqAndUnit = document.createElement('p')
       freqAndUnit.className = "habit-frequency"
@@ -59,7 +56,7 @@ function renderHabitsList(h, habitsWrapper) {
 
       const notes = document.createElement('p')
       notes.className = 'habit-notes'
-      notes.textContent = h.notes
+      notes.textContent = `Notes: ${h.notes}`
 
       
       card.appendChild(title)
@@ -75,7 +72,7 @@ async function updateHabit(h){
 
 
    const options = {
-      method: 'PUT',
+      method: 'PATCH',
       body: JSON.stringify({
          today: new Date().getTime() 
       }),
@@ -91,29 +88,12 @@ async function updateHabit(h){
    // profileRedirect()
 }
 
-// function renderHabit(h){
-//    main.innerHTML = '';
-
-//    const backButton = document.createElement('button')
-//    backButton.id ="bckbttn"
-//    backButton.textContent = "Back"
-//    backButton.onclick = profileRedirect;
-
-//    const info = document.createElement('p')
-//    info.textContent = h;
-
-
-//    main.appendChild(backButton)
-//    main.appendChild(info)
-
-// }
 
 
 async function getUserHabits(username){
    try {
        const response = await fetch(`http://localhost:3000/habits/${username}`);
        const data = await response.json()
-       console.log(data)
        return data;
    } catch (err) {
        console.warn(err);
@@ -122,6 +102,9 @@ async function getUserHabits(username){
 
 
 function renderCreateHabitForm(){
+
+   const formWrapper = document.createElement('div')
+   formWrapper.id = "create-habit-form-wrapper"
 
    const backButton = document.createElement('button')
    backButton.id ="bckbttn"
@@ -137,7 +120,15 @@ function renderCreateHabitForm(){
    habitTypeSelect.id = "habit-type-select"
    habitTypeSelect.name = "habit-selected"
 
-   const items = ["running", "abs", "squats", "push ups"];
+   const items = ["running", "walking", "abs", "squats","jump squats", "push-ups", "knee Push-ups", "supermans", "low plank", "hight plank", "russian twist", "knee tuck crunches", "backward Lunges", "beetle", "crunches", "bicycle crunches", "bridge", "crab bridge", "inchworms"];
+   const opt = document.createElement('option');
+   opt.value = "";
+   opt.selected = true;
+   opt.disabled = true;
+   opt.hidden = true;
+   opt.text = "--Predefined exercises--"
+   habitTypeSelect.appendChild(opt)
+
    for (const val of items) {
       let option = document.createElement("option");
       option.value = val;
@@ -176,24 +167,6 @@ function renderCreateHabitForm(){
 
    newHabitForm.appendChild(quantityLabel)
    newHabitForm.appendChild(quantity)
-      
-   // const unitsSelect = document.createElement('select')
-   // unitsSelect.id = "units-select"
-   // unitsSelect.name = "units"
-
-   // const units = ["times", "kilometers", "miles", "hours", "minutes", "days"];
-   // for (const val of units) {
-   //    let opt = document.createElement("option");
-   //    opt.value = val;
-   //    opt.text = val.charAt(0).toUpperCase() + val.slice(1);
-   //    unitsSelect.appendChild(opt);
-   // }
-   // let unitsLabel = document.createElement("label");
-   // unitsLabel.htmlFor = "units-select";
-   // unitsLabel.textContent = "Select units: "
-      
-   // newHabitForm.appendChild(unitsLabel)
-   // newHabitForm.appendChild(unitsSelect)
 
    const notes = document.createElement("textarea")
    notes.id ="notes";
@@ -215,21 +188,21 @@ function renderCreateHabitForm(){
 
    newHabitForm.addEventListener('submit', requestPostHabit)
 
-   main.appendChild(newHabitForm)
+   formWrapper.appendChild(newHabitForm)
+   main.appendChild(formWrapper)
 
 }
 
 async function requestPostHabit(e){
    e.preventDefault();
    try{
-      console.log("It's inside requestPostHabit function")
-      const habit = ""
-
+      let habitValue = ""
+      habitValue = e.target["habit-created"].value ? e.target["habit-created"].value : e.target["habit-selected"].value
       const options = {
          method: 'POST',
          body: JSON.stringify({
             username: currentUser(),
-            habitName: e.target["habit-selected"].value,
+            habitName: habitValue,
             frequency: e.target["quantity"].value,
             notes: e.target["notes"].value
          }),
@@ -237,11 +210,8 @@ async function requestPostHabit(e){
             'Content-Type': 'application/json'
          }
       }
-      console.log(options.body)
-
       const newHabit = await fetch('http://localhost:3000/habits', options);
       const data = await newHabit.json()
-      console.log(data)
       if (data.err){ throw new Error(`${data.err}`)}
       window.location.hash = "#profile"
       return data.habit;

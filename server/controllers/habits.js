@@ -51,7 +51,7 @@ router.delete('/:id', async (req, res)=>{
     }
 })
 
-router.put('/:id', async (req, res)=>{
+router.patch('/:id', async (req, res)=>{
     try {
         console.log(req.params.id,req.body)
         const habits = await Habit.update(req.params.id,req.body)
