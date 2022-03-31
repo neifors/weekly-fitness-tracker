@@ -98,63 +98,23 @@ main div.card .submit-button {
    transform: scale(1.5) perspective(1px)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-main h3#signin-title {
-
-}
-
-main button#register-buttton {
+main div.card #register-button {
    color: green;
    border-radius: 90%;
    padding: 10px;
 }
 
-main button#register-buttton:hover {
+main div.card #register-button:hover {
    transform: scale(1.5) perspective(1px)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-main h3 #signin-title {
+main div.card .login-button {
    color: green;
    border-radius: 90%;
    padding: 10px;
 }
 
-main h3 #signin-title:hover {
+main div.card .login-button:hover {
    transform: scale(1.5) perspective(1px)
 }
 
-main button #register-button {
-   color: green;
-   border-radius: 90%;
-   padding: 10px;
-}
-
-main button #register-button:hover {
-   transform: scale(1.5) perspective(1px)
-}

@@ -108,7 +108,7 @@ function renderRegisterForm() {
       { tag: 'input', attributes: { type: 'email', name: 'email', placeholder: 'Your email E.g. fitnessperson@gmail.com' } },
       { tag: 'input', attributes: { type: 'password', name: 'password', placeholder: 'Create a password' } },
       { tag: 'input', attributes: { type: 'password', name: 'passwordConfirmation', placeholder: 'Confirm Password' } },
-      { tag: 'input', attributes: { type: 'submit', value: 'Create Account' } }
+      { tag: 'input', attributes: { class: 'submit-button', type: 'submit', value: 'Create Account' } }
 
    ]
 
