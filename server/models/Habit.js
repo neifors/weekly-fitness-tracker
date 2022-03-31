@@ -68,8 +68,6 @@ class Habit {
                rej(`Error deleting habit for user: ${err}`)
          }
       })
-
-
    }
 
    static update(id,data){
@@ -77,32 +75,38 @@ class Habit {
          try {
                const db = await init()
                console.log(data,data.today)
-               const habitToUpdate = await getHabitById(id)
-
+               const habitToUpdate = await this.getHabitById(id)
+               let dataToUpdate = {}
                if (data.today > habitToUpdate.finishDate){ 
-                     const dataToUpdate = { outOfWeek: true }
+                     dataToUpdate = { outOfWeek: true }       
                } else {
                      if( habitToUpdate.currentStreak+1 > habitToUpdate.topStreak && habitToUpdate.currentStreak+1 === habitToUpdate.frequency){
-                        const dataToUpdate = {
-                              currentStreak: currentStreak+1,
-                              topStreak : currentStreak+1,
+                        
+                        dataToUpdate = {
+                              currentStreak: habitToUpdate.currentStreak+1,
+                              topStreak : habitToUpdate.currentStreak+1,
                               complete : true
                         }
+
                      } else if (habitToUpdate.currentStreak+1 > habitToUpdate.topStreak && habitToUpdate.currentStreak+1 < habitToUpdate.frequency ) {
-                        const dataToUpdate = {
-                              currentStreak: currentStreak+1,
-                              topStreak : currentStreak+1,
+                        
+                        dataToUpdate = {
+                              currentStreak: habitToUpdate.currentStreak+1,
+                              topStreak : habitToUpdate.currentStreak+1,
                         }
+
                      } else if ( habitToUpdate.currentStreak+1 <= habitToUpdate.topStreak ) {
-                        const dataToUpdate = {
-                              currentStreak: currentStreak+1
+                        
+                        dataToUpdate = {
+                              currentStreak: habitToUpdate.currentStreak+1
                         }
                      }
                }
+               console.log(dataToUpdate)
 
-               const usersData = await db.collection('habits').updateOne({"_id": ObjectId(id)},{ $set: { ...dataToUpdate} })
+               const usersData = await db.collection('habits').updateOne({"_id": ObjectId(id)},{ $set: {...dataToUpdate} })
                res(usersData)
-               
+
          } catch (err) {
                rej(`Error updating habit for user: ${err}`)
          }

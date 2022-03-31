@@ -53,6 +53,7 @@ router.delete('/:id', async (req, res)=>{
 
 router.patch('/:id', async (req, res)=>{
     try {
+        console.log(req.params.id,req.body)
         const habits = await Habit.update(req.params.id,req.body)
         console.log(req.body)
         res.json(habits)
