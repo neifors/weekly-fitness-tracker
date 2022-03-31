@@ -80,36 +80,28 @@ class Habit {
                if (data.today > habitToUpdate.finishDate){ 
                      dataToUpdate = { outOfWeek: true }    
                } else {
-                     if( habitToUpdate.currentStreak+1 > habitToUpdate.topStreak && habitToUpdate.currentStreak+1 === habitToUpdate.frequency){
-                        
+                     if( habitToUpdate.currentStreak+1 > habitToUpdate.topStreak && habitToUpdate.currentStreak+1 == habitToUpdate.frequency){
                         dataToUpdate = {
                               currentStreak: habitToUpdate.currentStreak+1,
                               topStreak : habitToUpdate.currentStreak+1,
                               complete: true
                         }
-
                      } else if (habitToUpdate.currentStreak+1 > habitToUpdate.topStreak && habitToUpdate.currentStreak+1 < habitToUpdate.frequency ) {
-                        
                         dataToUpdate = {
                               currentStreak: habitToUpdate.currentStreak+1,
                               topStreak : habitToUpdate.currentStreak+1,
                         }
-
-                     } else if ( habitToUpdate.currentStreak+1 <= habitToUpdate.topStreak ) {
-                        
+                     } else if ( habitToUpdate.currentStreak+1 < habitToUpdate.topStreak ) { 
                         dataToUpdate = {
                               currentStreak: habitToUpdate.currentStreak+1
                         }
                      }
                }
-
                const usersData = await db.collection('habits').updateOne(
                   { _id: ObjectId(id) },
                   { $set: dataToUpdate }
-               )
-               
+               )  
                res(usersData)
-
          } catch (err) {
                rej(`Error updating habit for user: ${err}`)
          }

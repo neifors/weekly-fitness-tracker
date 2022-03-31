@@ -35,6 +35,12 @@ function renderHabitsList(h, habitsWrapper) {
       const card = document.createElement('div');
       card.className = "habit-card";
 
+      const closeBttn = document.createElement('button')
+      closeBttn.className = "close-button"
+      closeBttn.textContent = "X"
+
+      closeBttn.addEventListener('click',async e => destroy(h))
+
       const title = document.createElement('h3')
       title.className = "habit-card-title"
       title.textContent = h.habitName.charAt(0).toUpperCase() + h.habitName.slice(1)
@@ -46,31 +52,36 @@ function renderHabitsList(h, habitsWrapper) {
       const currentSt = document.createElement('p')
       currentSt.className = 'habit-currentStreak'
       currentSt.textContent = `Current Streak: ${h.currentStreak}`
-
+  
       const update = document.createElement('button');
       update.className = "habit-update-button"
       update.textContent = 'Update'
 
       update.addEventListener('click',async e => updateHabit(h))
 
-
       const notes = document.createElement('p')
       notes.className = 'habit-notes'
       notes.textContent = `Notes: ${h.notes}`
-
       
+      card.appendChild(closeBttn)
       card.appendChild(title)
       card.appendChild(freqAndUnit)
       card.appendChild(notes)
       card.appendChild(currentSt)
-      card.appendChild(update)
+      if (h.complete === true){
+         const completeMsg = document.createElement('h3')
+         completeMsg.className = "complete-msg"
+         completeMsg.style = "color: green"
+         completeMsg.textContent = "COMPLETE"
+         card.appendChild(completeMsg)
+      } else {
+         card.appendChild(update)
+      }
+
       habitsWrapper.appendChild(card)
 }
 
 async function updateHabit(h){
-   console.log(h)
-
-
    const options = {
       method: 'PATCH',
       body: JSON.stringify({
@@ -80,15 +91,30 @@ async function updateHabit(h){
          'Content-Type': 'application/json'
       }
    }
-   console.log(options)
-
    const result = await fetch(`http://localhost:3000/habits/${h._id}`, options)
    const resultData = await result.json()
    console.log(resultData)
-   // profileRedirect()
+   window.location.reload()
 }
 
+async function destroy(h) {
+   try {
+      const options = {
+         method: 'DELETE',
+         body: JSON.stringify({
+            id: h._id 
+         }),
+         headers: {
+            'Content-Type': 'application/json'
+         }
+      }
+      await fetch(`http://localhost:3000/habits/${h._id}`, options);
+      window.location.reload()
 
+  } catch (err) {
+      console.warn(err);
+  }
+}
 
 async function getUserHabits(username){
    try {
