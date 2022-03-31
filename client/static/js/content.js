@@ -119,18 +119,32 @@ function formatHabitTr(habit, tr){
 }
 
 function createCard(habit){
+   console.log(new Date(habit.startDate).getTime())
+   let dateS=new Date(habit.startDate).getTime()
+   let dateE=new Date(habit.finishDate).getTime()
    let h2=document.createElement('h2')
    h2.textContent=habit.habitName
    let form=document.createElement('form')
    let textIn=document.createElement('input')
    textIn.value=habit.log
    const newDiv = document.createElement("div");
-   const newLabel=document.createElement("label")
+   const fre=document.createElement("p")
+   const currStreak=document.createElement("p")
+   const complete=document.createElement("p")
    newDiv.appendChild(h2);
-   newDiv.appendChild(newLabel)
-   newDiv.appendChild(textIn)
-
-   newLabel.textContent=`Frequency: ${habit.frequency}`
+   newDiv.appendChild(fre)
+   newDiv.appendChild(currStreak)
+   newDiv.appendChild(complete)
+   let dateIn=document.createElement('input')
+   for (let i=habit.startDate;i<habit.finishDate;i+=3600*24*1000){
+      dateIn.textContent=i
+      form.appendChild(dateIn)
+      console.log(i)
+   }
+   
+   fre.textContent=`Frequency: ${habit.frequency}`
+   currStreak.textContent=`Current streak: ${habit.currentStreak}`
+   complete.textContent=`Complete: ${habit.complete}`
    form.appendChild(newDiv)
    //const newContent = document.createTextNode("Hi there and greetings!");
    
