@@ -24,7 +24,7 @@ function renderHomepage() {
 
    const question = document.createElement('h3');
    question.id = "question"
-   question.textContent = "Don't have an account yet?"
+   question.textContent = "Don't have an account yet? Register below!"
 
    const registerButton = document.createElement('button');
    registerButton.id = "register-button";
@@ -41,23 +41,27 @@ function renderHomepage() {
 
 
 function renderLoginForm() {
+   const loginDiv = document.createElement('div')
+   loginDiv.className = "card"
+   
+
    const backBttn = document.createElement('button')
    backBttn.className = "back-button"
    backBttn.textContent = "Back"
    backBttn.onclick = e => window.location.hash = "#";
 
-   main.appendChild(backBttn)
+   loginDiv.appendChild(backBttn)
 
 
    const signIn = document.createElement('h3')
    signIn.id = 'signin-title'
    signIn.textContent = 'Sign in Below'
-   main.appendChild(signIn)
+   loginDiv.appendChild(signIn)
 
    const fields = [
        { tag: 'input', attributes: { type: 'email', name: 'email', placeholder: 'Enter your email here' } },
-       { tag: 'input', attributes: { type: 'password', name: 'password', placeholder: 'Please insert password here' } },
-       { tag: 'input', attributes: { type: 'submit', value: 'Login' } }
+       { tag: 'input', attributes: { class: 'passStyle', type: 'password', name: 'password', placeholder: 'Please insert password here' } },
+       { tag: 'input', attributes: { class: 'submit-button', type: 'submit', value: 'Login' } }
 
    ]
 
@@ -71,27 +75,32 @@ function renderLoginForm() {
       })
    })
    form.addEventListener('submit', requestLogin)
-   main.appendChild(form);
+   loginDiv.appendChild(form);
 
    const question = document.createElement('h4');
    question.id = 'are-you-new';
    question.textContent = "Don't have an account yet? Sign up!";
-   main.appendChild(question);
+   loginDiv.appendChild(question);
 
    const registerBttn = document.createElement('button');
    registerBttn.id = 'register-button';
    registerBttn.textContent = 'Register';
    registerBttn.onclick = registerRedirect;
-   main.appendChild(registerBttn);
+   loginDiv.appendChild(registerBttn);
+
+   main.appendChild(loginDiv)
 }
 
 function renderRegisterForm() {
+   const regDiv = document.createElement('div')
+   regDiv.className = "card"
+
    const backBttn = document.createElement('button')
    backBttn.className = "back-button"
    backBttn.textContent = "Back"
    backBttn.onclick = e => window.location.hash = "#";
 
-   main.appendChild(backBttn)
+   regDiv.appendChild(backBttn)
 
    const fields = [
       { tag: 'input', attributes: { type: 'text', id: 'register-input-username', name: 'username', placeholder: 'Create a username' } },
@@ -113,7 +122,21 @@ function renderRegisterForm() {
    })
 
    form.addEventListener('submit', requestRegistration);
-   main.appendChild(form);
+   regDiv.appendChild(form);
+
+
+   const question = document.createElement('h4');
+   question.id = 'already-have-account';
+   question.textContent = "If you already have an account";
+   regDiv.appendChild(question);
+
+   const registerBttn = document.createElement('button');
+   registerBttn.id = 'login-button';
+   registerBttn.textContent = 'Login';
+   registerBttn.onclick = loginRedirect;
+   regDiv.appendChild(registerBttn);
+
+   main.appendChild(regDiv)
 
    const errMsg = document.getElementById('username-error-message')
    const input = document.getElementById("register-input-username")
@@ -145,17 +168,6 @@ function renderRegisterForm() {
 
    })
 
-
-   const question = document.createElement('h4');
-   question.id = 'already-have-account';
-   question.textContent = "If you already have an account";
-   main.appendChild(question);
-
-   const registerBttn = document.createElement('button');
-   registerBttn.id = 'login-button';
-   registerBttn.textContent = 'Login';
-   registerBttn.onclick = loginRedirect;
-   main.appendChild(registerBttn);
 }
 
 
