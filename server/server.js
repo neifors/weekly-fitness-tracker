@@ -12,7 +12,7 @@ const habitsRoutes = require("./controllers/habits")
 server.use("/habits", habitsRoutes);
 server.use("/users", usersRoutes);
 server.use("/auth", authRoutes);
-server.use("/habits", habitRoutes);
+
 
 
 server.get('/', (req, res)=>{
