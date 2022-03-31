@@ -12,30 +12,32 @@ window.addEventListener('hashchange', updateContent);
 
 function updateMain(path){
    main.innerHTML = '';
-   // if (path) {
-   //    switch(path) {
-   //       case '#login':    
-   //          renderLoginForm(); break;
-   //       case '#register':
-   //          renderRegisterForm(); break;
-   //       case '#profile':
-   //          renderProfilePage(); break;
-   //       case '#create':
-   //          renderCreateHabitForm(); break;
-   //       default:
-   //          render404(); break;
-   //    }
-   // } else {
+   if (path) {
+      switch(path) {
+         case '#login':    
+            renderLoginForm(); break;
+         case '#register':
+            renderRegisterForm(); break;
+         case '#profile':
+            renderProfilePage(); break;
+         case '#create':
+            renderCreateHabitForm(); break;
+         default:
+            render404(); break;
+      }
+   } else {
       renderHomepage();
-   // }
+   }
 }
 
 
 function updateContent(){
    const path = window.location.hash;
-   if (privateRoutes.includes(path) && !!currentUser) {
+   console.log(path)
+   console.log(currentUser())
+   if (privateRoutes.includes(path) && currentUser() == null) {
       window.location.hash = '#';
-   } else if (!!privateRoutes.includes(path) && currentUser) {
+   } else if (!privateRoutes.includes(path) && currentUser() !== null) {
       window.location.hash = '#profile';
    } else {
       updateMain(path);

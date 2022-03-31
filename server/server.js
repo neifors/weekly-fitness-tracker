@@ -7,9 +7,9 @@ server.use(express.json());
 
 const usersRoutes = require("./controllers/users")
 const authRoutes = require("./controllers/auth")
-const habitRoutes= require("./controllers/habits")
+const habitsRoutes = require("./controllers/habits")
 
-
+server.use("/habits", habitsRoutes);
 server.use("/users", usersRoutes);
 server.use("/auth", authRoutes);
 server.use("/habits", habitRoutes);

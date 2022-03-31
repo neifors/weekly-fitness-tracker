@@ -1,29 +1,22 @@
 const { init } = require ('../db_config/dbconfig.js')
 const { ObjectId } = require('mongodb')
-let now= new Date().getTime()
-let week1=now+(3600*24*7*1000)
-let start= new Date(now).toUTCString()
-let finish=new Date(week1).toUTCString()
-
-function canModify(now){
-   let n=now.getTime()
-}
 
 class Habit {
     constructor(data){
        this._id=data._id
        this.username=data.username
        this.habitName = data.habitName
-       this.frequency=data.frequency//days of week
-       this.log=[]
-       this.startDate = start
-       this.finishDate= finish
-       this.note= data.note
-       this.currentStreak=0
-       this.complete=false;
-       this.outOfWeek=false;
-   }
-    static gethabits(person){
+       this.frequency=data.frequency
+       this.notes=data.notes
+       this.startDate = data.startDate
+       this.finishDate= data.finishDate
+       this.complete= data.complete
+       this.currentStreak = data.currentStreak 
+       this.topStreak = data.topStreak 
+       this.outOfWeek = data.outOfWeek 
+    }
+
+   static gethabits(person){
       return new Promise(async (res, rej) => {
          try {
                const db = await init()
@@ -35,19 +28,35 @@ class Habit {
          }
       })
    }
+
+   static getHabitById(id){
+      return new Promise(async (res, rej) => {
+         try {
+               const db = await init()
+               const habitData = await db.collection('habits').find({_id:id}).toArray()
+               const habit = habitData.map(h => new Habit({...h}))
+               res(habit)
+         } catch (err) {
+               rej(`Error retrieving habits for user: ${err}`)
+         }
+      })
+   }
+
+
    static create(data){
       return new Promise(async (res, rej) => {
          try {
                const db = await init()
-               const usersData = await db.collection('habits').insertOne(data)
-               //const users = usersData.map(user => new Habit({...user}))
-               res(usersData)
+               const newHabit = await db.collection('habits').insertOne(data)
+               console.log("This is the habit has been created into models/Habit.js")
+               console.log(newHabit)
+               res(`habit created succesfully`)
          } catch (err) {
                rej(`Error creating habits for user: ${err}`)
          }
       })
-
    }
+
    static delete(data){
       return new Promise(async (res, rej) => {
          try {
@@ -63,22 +72,43 @@ class Habit {
 
    }
 
-    static update(id,data){
+   static update(id,data){
       return new Promise(async (res, rej) => {
          try {
                const db = await init()
-               console.log(data,data._id)
-               const usersData = await db.collection('habits').updateOne({"_id": ObjectId(id)},
-               { $set: { ...data} })
-               //const users = usersData.map(user => new Habit({...user}))
+               console.log(data,data.today)
+               const habitToUpdate = await getHabitById(id)
+
+               if (data.today > habitToUpdate.finishDate){ 
+                     const dataToUpdate = { outOfWeek: true }
+               } else {
+                     if( habitToUpdate.currentStreak+1 > habitToUpdate.topStreak && habitToUpdate.currentStreak+1 === habitToUpdate.frequency){
+                        const dataToUpdate = {
+                              currentStreak: currentStreak+1,
+                              topStreak : currentStreak+1,
+                              complete : true
+                        }
+                     } else if (habitToUpdate.currentStreak+1 > habitToUpdate.topStreak && habitToUpdate.currentStreak+1 < habitToUpdate.frequency ) {
+                        const dataToUpdate = {
+                              currentStreak: currentStreak+1,
+                              topStreak : currentStreak+1,
+                        }
+                     } else if ( habitToUpdate.currentStreak+1 <= habitToUpdate.topStreak ) {
+                        const dataToUpdate = {
+                              currentStreak: currentStreak+1
+                        }
+                     }
+               }
+
+               const usersData = await db.collection('habits').updateOne({"_id": ObjectId(id)},{ $set: { ...dataToUpdate} })
                res(usersData)
+               
          } catch (err) {
                rej(`Error updating habit for user: ${err}`)
          }
       })
-
+  
     }
-   
 
 }
 
