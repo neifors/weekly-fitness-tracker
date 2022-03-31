@@ -1,0 +1,56 @@
+main {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+
+
+main div#buttons-wrapper{
+
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+
+main div#logo-wrapper {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+
+main div#logo-wrapper img{
+   width: 350px;
+   padding: 30px;
+}
+
+
+main div#buttons-wrapper #login-button{
+   color: green;
+   border-radius: 90%;
+   padding: 10px;
+}
+
+main div#buttons-wrapper #login-button:hover {
+   transform: scale(1.5) perspective(1px)
+}
+
+main div#buttons-wrapper #register-button{
+   color: green;
+   border-radius: 90%;
+   padding: 10px;
+}
+
+main div#buttons-wrapper #register-button:hover{
+   transform: scale(1.5) perspective(1px)
+}
+main div#buttons-wrapper h3#question {
+   font-family: 'Bebas Neue', cursive;
+   font-size: 30px;
+}
+
+/* form#login-form {
+
+} */
