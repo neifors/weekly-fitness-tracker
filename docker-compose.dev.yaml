@@ -3,14 +3,15 @@ services:
   server:
     container_name: dev_api
     working_dir: /code
+    environment: 
+      - DB_NAME=users
+      - DB_CONNECTION=mongodb://futureproof:userspass@db:27017
+      - PORT= 3000
     ports: 
       - 3000:3000
-    environment: 
-      - PORT= 3000
     depends_on:
       - db
     command: bash -c "npm install && npm start"
-
   db:
     container_name: dev_db
     volumes:

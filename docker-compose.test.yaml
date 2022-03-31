@@ -3,6 +3,9 @@ services:
   server:
     container_name: debug_test_api
     working_dir: /code
+    environment: 
+      - DB_NAME=users
+      - DB_CONNECTION=mongodb://futureproof:userspass@db:27017
     depends_on:
       - db
     command: bash -c "npm install && npm test"

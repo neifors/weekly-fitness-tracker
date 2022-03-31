@@ -4,8 +4,8 @@ const Habit= require('../models/Habit.js')
 
 let now= new Date().getTime()
 let week1=now+(3600*24*7*1000)
-let start= new Date(now).toUTCString().slice(0,16)
-let finish=new Date(week1).toUTCString().slice(0,16)
+// let start= new Date(now).toUTCString().slice(0,16)
+// let finish=new Date(week1).toUTCString().slice(0,16)
 
 router.get('/:username', async (req, res)=>{
     try {
@@ -23,15 +23,18 @@ router.post('/', async (req, res)=>{
             habitName: req.body.habitName,
             frequency: req.body.frequency,
             notes: req.body.notes,
-            startDate: start,
-            finishDate: finish,
+            startDate: now,
+            finishDate: week1,
             complete: false,
             currentStreak: 0,
             topStreak: 0,
             outOfWeek: false
         }
         const newhabit = await Habit.create(data)
-        res.status(201).json(newhabit)
+        if (!newhabit){
+            return res.status(500).json({err: 'habit couldnt be created'})
+        }
+        res.status(201).json({msg: 'Habit created', habit: newhabit})
         console.log(newhabit)
 
     } catch(err){
@@ -50,7 +53,8 @@ router.delete('/:id', async (req, res)=>{
 
 router.patch('/:id', async (req, res)=>{
     try {
-        const habits = await Habit.delete(req.params.id)
+        const habits = await Habit.update(req.params.id,req.body)
+        console.log(req.body)
         res.json(habits)
     } catch(err) {
         res.status(500).json({err})
@@ -58,3 +62,4 @@ router.patch('/:id', async (req, res)=>{
 })
 
 module.exports=router;
+

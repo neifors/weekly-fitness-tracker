@@ -23,15 +23,17 @@ async function renderProfilePage() {
    const habitsWrapper = document.createElement('div');
    habitsWrapper.id = "habits-wrapper";
 
-   // const habits = await getUserHabits(currentUser);
-   // if (habits) { habits.forEach(h => renderHabitsList) }
+   const habits = await getUserHabits(currentUser());
+   console.log(habits)
+
+   if (habits) { habits.forEach(h => {renderHabitsList(h,habitsWrapper)}) }
    
    main.appendChild(topDiv);
    main.appendChild(habitsWrapper);
 }
 
 
-function renderHabitsList(h) {
+function renderHabitsList(h, habitsWrapper) {
       const card = document.createElement('div');
       card.className = "habit-card";
       // card.onclick = renderHabit(h);
@@ -41,32 +43,59 @@ function renderHabitsList(h) {
       title.textContent = h.habitName
       
       const freqAndUnit = document.createElement('p')
-      freqAndUnit.className = "freq-and-unit"
-      freqAndUnit.textContent = `${h.frequency} ${h.units}`
+      freqAndUnit.className = "frequency"
+      freqAndUnit.textContent = `${h.frequency} days/week`
+
+      const update = document.createElement('button');
+      update.id = "update-button"
+      update.textContent = 'Update'
+
+      // update.addEventListener('click',update(h))
       
       card.appendChild(title)
       card.appendChild(freqAndUnit)
+      card.appendChild(update)
       habitsWrapper.appendChild(card)
 }
 
+// async function update(h){
+//    const data = {
+//       id: h._id,
+//       today: new Date().getTime() 
+//    }
 
-function renderHabit(h){
-   main.innerHTML = '';
+//    const options = {
+//       method: 'PATCH',
+//       body: JSON.stringify(data),
+//       headers: {
+//          'Content-Type': 'application/json'
+//       }
+//    }
+// }
 
-   const backButton = document.createElement('button')
-   backButton.id ="bckbttn"
-   backButton.textContent = "Back"
-   backButton.onclick = profileRedirect;
+// function renderHabit(h){
+//    main.innerHTML = '';
 
-   main.appendChild(backButton)
+//    const backButton = document.createElement('button')
+//    backButton.id ="bckbttn"
+//    backButton.textContent = "Back"
+//    backButton.onclick = profileRedirect;
 
-}
+//    const info = document.createElement('p')
+//    info.textContent = h;
+
+
+//    main.appendChild(backButton)
+//    main.appendChild(info)
+
+// }
 
 
 async function getUserHabits(username){
    try {
        const response = await fetch(`http://localhost:3000/habits/${username}`);
        const data = await response.json()
+       console.log(data)
        return data;
    } catch (err) {
        console.warn(err);
@@ -174,23 +203,31 @@ function renderCreateHabitForm(){
 
 async function requestPostHabit(e){
    e.preventDefault();
+   try{
+      console.log("It's inside requestPostHabit function")
+      const habit = ""
 
-   const habit = ""
-
-   let options = {
-      method: 'POST',
-      body: JSON.stringify({
-         username: currentUser(),
-         habitName: habit,
-         frequency: e.target["quantity"].value,
-         notes: e.target["notes"].value
-      }),
-      headers: {
-         'Content-Type': 'application/json'
+      const options = {
+         method: 'POST',
+         body: JSON.stringify({
+            username: currentUser(),
+            habitName: e.target["habit-selected"].value,
+            frequency: e.target["quantity"].value,
+            notes: e.target["notes"].value
+         }),
+         headers: {
+            'Content-Type': 'application/json'
+         }
       }
-   }
+      console.log(options.body)
 
-   const newHabit = await fetch('http://localhost:3000/habits', options);
-   const data = await newHabit.json()
-   return data;
+      const newHabit = await fetch('http://localhost:3000/habits', options);
+      const data = await newHabit.json()
+      console.log(data)
+      if (data.err){ throw new Error(`${data.err}`)}
+      window.location.hash = "#profile"
+      return data.habit;
+   } catch(err) {
+      console.warn(err)
+   }
 }

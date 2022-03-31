@@ -29,13 +29,28 @@ class Habit {
       })
    }
 
+   static getHabitById(id){
+      return new Promise(async (res, rej) => {
+         try {
+               const db = await init()
+               const habitData = await db.collection('habits').find({_id:id}).toArray()
+               const habit = habitData.map(h => new Habit({...h}))
+               res(habit)
+         } catch (err) {
+               rej(`Error retrieving habits for user: ${err}`)
+         }
+      })
+   }
+
+
    static create(data){
       return new Promise(async (res, rej) => {
          try {
                const db = await init()
                const newHabit = await db.collection('habits').insertOne(data)
-               const habit = new Habit({...newHabit})
-               res(habit)
+               console.log("This is the habit has been created into models/Habit.js")
+               console.log(newHabit)
+               res(`habit created succesfully`)
          } catch (err) {
                rej(`Error creating habits for user: ${err}`)
          }
@@ -57,20 +72,43 @@ class Habit {
 
    }
 
-//     static update(data){
-//       return new Promise(async (res, rej) => {
-//          try {
-//                const db = await init()
-//                const usersData = await db.collection('habits').deleteOne({"_id": ObjectId(data)})
-//                //const users = usersData.map(user => new Habit({...user}))
-//                res(usersData)
-//          } catch (err) {
-//                rej(`Error deleting habit for user: ${err}`)
-//          }
-//       })
+   static update(id,data){
+      return new Promise(async (res, rej) => {
+         try {
+               const db = await init()
+               console.log(data,data.today)
+               const habitToUpdate = await getHabitById(id)
 
-//     }
-   
+               if (data.today > habitToUpdate.finishDate){ 
+                     const dataToUpdate = { outOfWeek: true }
+               } else {
+                     if( habitToUpdate.currentStreak+1 > habitToUpdate.topStreak && habitToUpdate.currentStreak+1 === habitToUpdate.frequency){
+                        const dataToUpdate = {
+                              currentStreak: currentStreak+1,
+                              topStreak : currentStreak+1,
+                              complete : true
+                        }
+                     } else if (habitToUpdate.currentStreak+1 > habitToUpdate.topStreak && habitToUpdate.currentStreak+1 < habitToUpdate.frequency ) {
+                        const dataToUpdate = {
+                              currentStreak: currentStreak+1,
+                              topStreak : currentStreak+1,
+                        }
+                     } else if ( habitToUpdate.currentStreak+1 <= habitToUpdate.topStreak ) {
+                        const dataToUpdate = {
+                              currentStreak: currentStreak+1
+                        }
+                     }
+               }
+
+               const usersData = await db.collection('habits').updateOne({"_id": ObjectId(id)},{ $set: { ...dataToUpdate} })
+               res(usersData)
+               
+         } catch (err) {
+               rej(`Error updating habit for user: ${err}`)
+         }
+      })
+  
+    }
 
 }
 
