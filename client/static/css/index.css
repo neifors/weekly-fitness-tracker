@@ -26,6 +26,9 @@ main div#logo-wrapper img{
    padding: 30px;
 }
 
+main div#buttons-wrapper{
+   text-align: center;
+}
 
 main div#buttons-wrapper #login-button{
    color: green;
@@ -79,8 +82,9 @@ main div#profile-top-div {
 main button#add-habit-button {
    color: green;
    border-radius: 90%;
-   padding: 10px;
+   padding: 10px 20px;
    margin: 20px;
+   font-size: 30px;   
 }
 
 main button#logout-button {
@@ -101,7 +105,7 @@ main button#logout-button:hover {
 main div#habits-wrapper {
    display: flex;
    justify-content: center;
-   flex-direction: column-reverse;
+   /* flex-direction: column-reverse; */
    flex-wrap: wrap;
 }
 
@@ -203,7 +207,28 @@ main div.card .login-button:hover {
    transform: scale(1.5) perspective(1px)
 }
 
-main div.card #register-form .submit-button {
+
+
+/* Post Habit Form */
+
+main button#bckbttn {
+   color: green;
+   border-radius: 90%;
+   padding: 10px;
+   margin-top: 50px;
+}
+
+main button#bckbttn:hover {
+   transform: scale(1.5) perspective(1px)
+}
+
+main form#new-habit-form {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
+
+main form#new-habit-form input#submit-habit {
    color: green;
    border-radius: 90%;
    padding: 10px;
@@ -216,11 +241,17 @@ main div.card #register-form .submit-button:hover {
 }
 
 main div.card button#login-button {
+
    color: green;
    border-radius: 90%;
    padding: 10px;
    align-self: center;
-   margin: 10px;
+   margin: 40px;
+}
+
+
+main form#new-habit-form label {
+   margin-top: 20px;
 }
 
 main div.card button#login-button:hover {
