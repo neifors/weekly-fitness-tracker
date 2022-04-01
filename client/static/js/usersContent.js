@@ -14,6 +14,7 @@ async function renderProfilePage() {
    addButton.onclick = habitFormRedirect;
 
    const logoutButton = document.createElement('button');
+   logoutButton.id = "logout-button"
    logoutButton.textContent = 'Logout';
    logoutButton.onclick = logout;
 
@@ -30,10 +31,16 @@ async function renderProfilePage() {
    main.appendChild(habitsWrapper);
 }
 
+function randomColor() {
+   const colorList = ["rgb(238, 195, 232)","rgb(187, 240, 187)","rgb(235, 243, 164)","rgb(165, 109, 218)","rgb(156, 250, 242)","rgb(231, 129, 129)","rgb(129, 144, 231)","rgb(153, 231, 129)"]
+   return colorList[Math.floor(Math.random() * 8)]
+}
 
 function renderHabitsList(h, habitsWrapper) {
       const card = document.createElement('div');
       card.className = "habit-card";
+      const color = randomColor()
+      card.style = `background-color: ${color};`
 
       const closeBttn = document.createElement('button')
       closeBttn.className = "close-button"
@@ -68,12 +75,48 @@ function renderHabitsList(h, habitsWrapper) {
       card.appendChild(freqAndUnit)
       card.appendChild(notes)
       card.appendChild(currentSt)
-      if (h.complete === true){
+
+      let now= new Date().getTime()
+      let today= new Date(now).toUTCString().slice(0,16)
+
+      if (h.complete === true && now <= h.finishDate){
          const completeMsg = document.createElement('h3')
          completeMsg.className = "complete-msg"
          completeMsg.style = "color: green"
          completeMsg.textContent = "COMPLETE"
          card.appendChild(completeMsg)
+      } else if (h.lastUpdate == today && now <= h.finishDate){
+         update.disabled = true;
+         const updatedMsg = document.createElement('h3')
+         updatedMsg.className = "complete-msg"
+         updatedMsg.style = "color: purple"
+         updatedMsg.textContent = "Updated today. Try again tomorrow"
+         card.appendChild(updatedMsg)
+         card.appendChild(update)
+      } else if(h.complete === true && now > h.finishDate){
+         const completeMsg = document.createElement('h3')
+         completeMsg.className = "complete-msg"
+         completeMsg.style = "color: green"
+         completeMsg.textContent = "COMPLETE"
+         card.appendChild(completeMsg)
+         card.style = "background-color: grey;"
+         const disableMsg = document.createElement('p')
+         disableMsg.className = "complete-msg"
+         disableMsg.style = "color: yellow"
+         disableMsg.textContent = "Out of week"
+         card.appendChild(disableMsg)
+      } else if (h.complete === false && now > h.finishDate){
+         const completeMsg = document.createElement('h3')
+         completeMsg.className = "complete-msg"
+         completeMsg.style = "color: red"
+         completeMsg.textContent = "INCOMPLETE"
+         card.appendChild(completeMsg)
+         card.style = "background-color: grey;"
+         const disableMsg = document.createElement('p')
+         disableMsg.className = "complete-msg"
+         disableMsg.style = "color: yellow"
+         disableMsg.textContent = "Out of week"
+         card.appendChild(disableMsg)
       } else {
          card.appendChild(update)
       }
@@ -184,8 +227,11 @@ function renderCreateHabitForm(){
    const quantity = document.createElement('input')
    quantity.type = "number"
    quantity.name = "quantity"
-   quantity.placeholder = "How many times/km/miles...?"
+   quantity.placeholder = "How many days/week?"
    quantity.id = "quantity"
+   quantity.min = 1;
+   quantity.max = 7;
+   quantity.required = true
 
    const quantityLabel = document.createElement("label")
    quantityLabel.htmlFor = "quantity"
@@ -197,6 +243,7 @@ function renderCreateHabitForm(){
    const notes = document.createElement("textarea")
    notes.id ="notes";
    notes.name = "notes";
+   notes.maxlength = "100";
 
    const notesLabel = document.createElement("label")
    notesLabel.htmlFor = "notes"
@@ -222,8 +269,9 @@ function renderCreateHabitForm(){
 async function requestPostHabit(e){
    e.preventDefault();
    try{
-      let habitValue = ""
-      habitValue = e.target["habit-created"].value ? e.target["habit-created"].value : e.target["habit-selected"].value
+
+      let habitValue = e.target["habit-created"].value ? e.target["habit-created"].value : e.target["habit-selected"].value
+
       const options = {
          method: 'POST',
          body: JSON.stringify({
@@ -236,11 +284,13 @@ async function requestPostHabit(e){
             'Content-Type': 'application/json'
          }
       }
+
       const newHabit = await fetch('http://localhost:3000/habits', options);
       const data = await newHabit.json()
       if (data.err){ throw new Error(`${data.err}`)}
       window.location.hash = "#profile"
       return data.habit;
+
    } catch(err) {
       console.warn(err)
    }
