@@ -1,11 +1,18 @@
 # Weekly Fitness Tracker
 
+[Isabel](https://github.com/neifors), [Leanne](https://github.com/leannesobogun), [Mike](https://github.com/mwezn) and [Paul](https://github.com/PaulNKD)
+
 ## Table of Contents
 
-- [Installation & Usage](#installation--usage)
-- [Technologies](#technologies)
-- [Database Schema](#database-schema)
-- [Routes](#routes)
+- Purpose of our app
+- Installation & Usage
+- Technologies
+- Database Schema
+- Routes
+
+# Purpose of our app
+
+
 
 # Installation & Usage
 
@@ -16,7 +23,7 @@
 - Run `npm install` to install dependencies
 - Navigate back to the `weekly-fitness-tracker` folder to run bash scripts
 
-### Local Usage (Docker)
+### Local Usage (Docker for Server and Database)
 
 `bash _scripts/startDev.sh`
 
@@ -45,10 +52,11 @@ Note: Press `Ctrl` + `C` to terminate the docker container
 - Attaches to api container and triggers full test run
 - No ports mapped to local host
 
+### Local Usage (Cient)
 
-<!-- ### Deployment
-
-This server is continuosly deployed at  -->
+- Go to client folder and open index.html using your browser.
+- You can also Open with Live Server from VS Code if you have installed the extension.
+- It depends on the server so it won't work properly until the server is running
 
 ## **Technologies**
 
@@ -57,8 +65,6 @@ This server is continuosly deployed at  -->
 - [Docker](https://docker.com/)
 - [Jest](https://jestjs.io/)
 - [MongoDB](https://www.mongodb.com/)
-<!-- - [MongoDB Atlas 🔗](https://www.mongodb.com/atlas/database)
-- [Socket.io 🔗](https://socket.io/) -->
 
 # Database Schema
 
@@ -160,7 +166,13 @@ This server is continuosly deployed at  -->
 }
 ```
 
+# Wins & Challenges
 
+## Wins
+
+## Challenges
+
+# HOW CLIENT LOOKS
 
 ![homepage](https://i.ibb.co/687JsCR/homepage.png) 
 ![created habits](https://i.ibb.co/WnWpkpG/created-habits.png) ![incomplete&outofweek](https://i.ibb.co/gPwL73f/incomplete-outofweek.png) ![updated&complete](https://i.ibb.co/X3D2Lh0/updated-complete.png) !
