@@ -100,7 +100,9 @@ main button#logout-button:hover {
 
 main div#habits-wrapper {
    display: flex;
+   justify-content: center;
    flex-direction: column-reverse;
+   flex-wrap: wrap;
 }
 
 main div#habits-wrapper div.habit-card{
