@@ -47,7 +47,7 @@ main div#buttons-wrapper #register-button:hover{
    transform: scale(1.5) perspective(1px)
 }
 main div#buttons-wrapper h3#question {
-   font-family: 'Bebas Neue', cursive;
+   font-family: 'Gloria Hallelujah', cursive;
    font-size: 30px;
 }
 
@@ -132,3 +132,71 @@ main div#habits-wrapper div.habit-card button.habit-update-button {
 main div#habits-wrapper div.habit-card button.habit-update-button:hover {
    transform: scale(1.5) perspective(1px)
 }
+
+div.card {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+
+form#login-form {
+   display: flex;
+   flex-direction: column;
+   margin: 10px;
+}
+
+form input.passStyle {
+   margin-top: 10px;
+   margin-bottom: 10px;
+
+}
+
+h3#signin-title {
+   font-family: 'Gloria Hallelujah', cursive;
+}
+
+h4#are-you-new {
+   font-family: 'Gloria Hallelujah', cursive;
+}
+
+main div.card .back-button{
+   color: green;
+   border-radius: 90%;
+   padding: 10px;
+}
+
+main div.card .back-button:hover {
+   transform: scale(1.5) perspective(1px)
+}
+
+main div.card .submit-button {
+   color: green;
+   border-radius: 90%;
+   padding: 10px;
+}
+
+main div.card .submit-button {
+   transform: scale(1.5) perspective(1px)
+}
+
+main div.card #register-button {
+   color: green;
+   border-radius: 90%;
+   padding: 10px;
+}
+
+main div.card #register-button:hover {
+   transform: scale(1.5) perspective(1px)
+}
+
+main div.card .login-button {
+   color: green;
+   border-radius: 90%;
+   padding: 10px;
+}
+
+main div.card .login-button:hover {
+   transform: scale(1.5) perspective(1px)
+}
+
