@@ -93,18 +93,6 @@ function renderHabitsList(h, habitsWrapper) {
          updatedMsg.textContent = "Updated today. Try again tomorrow"
          card.appendChild(updatedMsg)
          card.appendChild(update)
-      } else if(h.complete === true && now > h.finishDate){
-         const completeMsg = document.createElement('h3')
-         completeMsg.className = "complete-msg"
-         completeMsg.style = "color: green"
-         completeMsg.textContent = "COMPLETE"
-         card.appendChild(completeMsg)
-         card.style = "background-color: grey;"
-         const disableMsg = document.createElement('p')
-         disableMsg.className = "complete-msg"
-         disableMsg.style = "color: yellow"
-         disableMsg.textContent = "Out of week"
-         card.appendChild(disableMsg)
       } else if (h.complete === false && now > h.finishDate){
          const completeMsg = document.createElement('h3')
          completeMsg.className = "complete-msg"
