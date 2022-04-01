@@ -168,19 +168,22 @@ main div.card .back-button{
    color: green;
    border-radius: 90%;
    padding: 10px;
+   margin: 10px;
 }
 
 main div.card .back-button:hover {
    transform: scale(1.5) perspective(1px)
 }
 
-main div.card .submit-button {
+main div.card .submitting-button {
    color: green;
    border-radius: 90%;
    padding: 10px;
+   align-self: center;
+   margin-top: 18px;
 }
 
-main div.card .submit-button {
+main div.card .submitting-button:hover {
    transform: scale(1.5) perspective(1px)
 }
 
@@ -230,10 +233,31 @@ main form#new-habit-form input#submit-habit {
    border-radius: 90%;
    padding: 10px;
    align-self: center;
+   margin: 15px;
+}
+
+main div.card #register-form .submit-button:hover {
+   transform: scale(1.5) perspective(1px)
+}
+
+main div.card button#login-button {
+
+   color: green;
+   border-radius: 90%;
+   padding: 10px;
+   align-self: center;
    margin: 40px;
 }
 
 
 main form#new-habit-form label {
    margin-top: 20px;
+}
+
+main div.card button#login-button:hover {
+   transform: scale(1.5) perspective(1px)
+}
+
+main div.card #register-form .inputs {
+   margin: 10px;
 }

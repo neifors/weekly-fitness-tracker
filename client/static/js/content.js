@@ -59,7 +59,7 @@ function renderLoginForm() {
    const fields = [
        { tag: 'input', attributes: { type: 'email', name: 'email', placeholder: 'Enter your email here' } },
        { tag: 'input', attributes: { class: 'passStyle', type: 'password', name: 'password', placeholder: 'Please insert password here' } },
-       { tag: 'input', attributes: { class: 'submit-button', type: 'submit', value: 'Login' } }
+       { tag: 'input', attributes: { class: 'submitting-button', type: 'submit', value: 'Login' } }
 
    ]
 
@@ -101,11 +101,11 @@ function renderRegisterForm() {
    regDiv.appendChild(backBttn)
 
    const fields = [
-      { tag: 'input', attributes: { type: 'text', id: 'register-input-username', name: 'username', placeholder: 'Create a username' , require: true} },
-      { tag: 'p', attributes: { id: "username-error-message"}},
-      { tag: 'input', attributes: { type: 'email', name: 'email', placeholder: 'Your email E.g. fitnessperson@gmail.com' } },
-      { tag: 'input', attributes: { type: 'password', name: 'password', placeholder: 'Create a password' } },
-      { tag: 'input', attributes: { type: 'password', name: 'passwordConfirmation', placeholder: 'Confirm Password' } },
+      { tag: 'input', attributes: { type: 'text', /*id: 'register-input-username'*/class: 'inputs', name: 'username', placeholder: 'Create a username' , require: true} },
+      // { tag: 'p', attributes: { id: "username-error-message"}},
+      { tag: 'input', attributes: { type: 'email', class: 'inputs', name: 'email', placeholder: 'Your email E.g. fitnessperson@gmail.com' } },
+      { tag: 'input', attributes: { type: 'password', class: 'inputs', name: 'password', placeholder: 'Create a password' } },
+      { tag: 'input', attributes: { type: 'password', class: 'inputs', name: 'passwordConfirmation', placeholder: 'Confirm Password' } },
       { tag: 'input', attributes: { class: 'submit-button', type: 'submit', value: 'Create Account' } }
 
    ]
