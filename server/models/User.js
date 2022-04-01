@@ -5,7 +5,6 @@ class User {
       this.username = data.username
       this.email = data.email
       this.password = data.password
-      this.habits=[]
    }
    
    static get all(){

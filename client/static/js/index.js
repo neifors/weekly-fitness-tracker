@@ -33,8 +33,6 @@ function updateMain(path){
 
 function updateContent(){
    const path = window.location.hash;
-   console.log(path)
-   console.log(currentUser())
    if (privateRoutes.includes(path) && currentUser() == null) {
       window.location.hash = '#';
    } else if (!privateRoutes.includes(path) && currentUser() !== null) {
