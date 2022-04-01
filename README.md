@@ -80,22 +80,6 @@ This server is continuosly deployed at  -->
 
 ```json
 {
-<<<<<<< HEAD
-  "_id":"6246d9531ad56fbbe6fe017c",
-  "username":"mike","habitName":"walking",
-  "frequency":"4","notes":"Hello",
-  "startDate":1648809674963,
-  "finishDate":1649414474963,
-  "complete":false,
-  "currentStreak":1,
-  "topStreak":1,
-  "outOfWeek":false,
-  "lastUpdate":"Fri, 01 Apr 2022"
-  
-  }
-
-
-=======
    "_id":"6246bef32f55b00637816987",
    "username":"futureproof",
    "habitName":"running",
@@ -111,7 +95,6 @@ This server is continuosly deployed at  -->
 }
 ```
 
->>>>>>> 6ec78afa30355d0b660036eafd5d49b818d4b7d5
 # Routes
 
 ## Auth Routes
@@ -125,15 +108,9 @@ This server is continuosly deployed at  -->
 
 ```json
 {
-<<<<<<< HEAD
-  "username": "new_username",
-  "email": "new_email",
-  "password": "new_password"
-=======
   "username": "futureproof",
   "email": "futureproof@gmail.com",
   "password": ""
->>>>>>> 6ec78afa30355d0b660036eafd5d49b818d4b7d5
 }
 ```
 
