@@ -4,7 +4,7 @@ const Habit= require('../models/Habit.js')
 
 let now= new Date().getTime()
 let week1=now+(3600*24*7*1000)
-// let start= new Date(now).toUTCString().slice(0,16)
+
 // let finish=new Date(week1).toUTCString().slice(0,16)
 
 router.get('/:username', async (req, res)=>{
@@ -28,7 +28,8 @@ router.post('/', async (req, res)=>{
             complete: false,
             currentStreak: 0,
             topStreak: 0,
-            outOfWeek: false
+            outOfWeek: false,
+            lastUpdate: ""
         }
         const newhabit = await Habit.create(data)
         if (!newhabit){
@@ -51,7 +52,7 @@ router.delete('/:id', async (req, res)=>{
     }
 })
 
-router.put('/:id', async (req, res)=>{
+router.patch('/:id', async (req, res)=>{
     try {
         console.log(req.params.id,req.body)
         const habits = await Habit.update(req.params.id,req.body)
