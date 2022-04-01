@@ -110,7 +110,8 @@ This server is continuosly deployed at  -->
 {
   "username": "futureproof",
   "email": "futureproof@gmail.com",
-  "password": ""
+  "password": "password1"
+
 }
 ```
 
@@ -118,23 +119,46 @@ This server is continuosly deployed at  -->
 
 ```json
 {
-  "email": "Frank",
-  "password": "frank_password"
+  "email": "futureproof@gmail.com",
+  "password": "password1"
 }
 ```
-<!--
+
 ## User Routes
 
-| **URL**          | **HTTP Verb** | **Action** |
-| ---------------- | ------------- | ---------- |
-| /users           | GET           | index      |
+| **URL**     | **HTTP Verb** | **Action** |
+| ----------- | ------------- | ---------- |
+| /users      | GET           | index      |
 
 
-## Score Routes
 
-| **URL**                             | **HTTP Verb** | **Action**      |
-| ----------------------------------- | ------------- | --------------- |
-| /habits/:username                   | GET           | index           |
+## Habits Routes
+
+| **URL**            | **HTTP Verb** | **Action**     |
+| ------------------ | ------------- | -------------- |
+| /habits/:username  | GET           | index          |
+| /habits            | POST          | create         |
+| /habits/:id        | DELETE        | delete         |
+| /habits/:id        | PATCH         | update         |
+
+#### Body for create habit request
+
+```json
+{
+  "username": "futureproof",
+  "habitName": "Squats",
+  "frequency": "3",
+  "notes": "ideally 60 repetition/day"
+}
+```
+
+#### Body for update request
+
+```json
+{
+  "today": "217763187491"
+}
+```
 
 
 
