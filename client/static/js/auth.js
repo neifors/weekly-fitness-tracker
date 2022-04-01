@@ -9,18 +9,23 @@ async function requestRegistration(e) {
             'Content-Type': 'application/json'
          }
       }
-      console.log(options)
-
+      if (e.target["password"].value !== e.target["passwordConfirmation"].value){
+         const msg = document.createElement('p')
+         msg.id = 'different-pw-confirmation'
+         msg.textContent ="Different passwords"
+         msg.style = "color:red;"
+         main.append(msg)
+         throw new Error("passwords don't match")
+      }
       const result = await fetch('http://localhost:3000/auth/register', options)
       const data = await result.json()
-      console.log(data)
-      // HOW IS THIS DATA STRUCTURE?????
       if(!data.msg){  throw new Error("Couldn't create user") }
-
       requestLogin(e);
-      
+
    } catch(err) {
+
       console.warn(err);
+
    }
 }
 
@@ -35,10 +40,15 @@ async function requestLogin(e){
             'Content-Type': 'application/json'
          }
       }
-      console.log(options)
       const result = await fetch('http://localhost:3000/auth/login', options)
       const data = await result.json()
-      console.log(data)
+      if (data.err){
+         const msg = document.createElement('p')
+         msg.id = 'error-login'
+         msg.textContent ="Email and password doesn't match"
+         msg.style = "color:red;"
+         main.append(msg)
+      }
       login(data);   
       
    } catch(err) {

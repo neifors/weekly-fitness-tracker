@@ -14,6 +14,7 @@ class Habit {
        this.currentStreak = data.currentStreak 
        this.topStreak = data.topStreak 
        this.outOfWeek = data.outOfWeek 
+       this.lastUpdate = data.lastUpdate
     }
 
    static gethabits(person){
@@ -33,9 +34,9 @@ class Habit {
       return new Promise(async (res, rej) => {
          try {
                const db = await init()
-               const habitData = await db.collection('habits').find({_id:id}).toArray()
-               const habit = habitData.map(h => new Habit({...h}))
-               res(habit)
+               const habitData = await db.collection('habits').find({_id:ObjectId(id)}).toArray()
+            //    const habit = habitData.map(h => new Habit({...h}))
+               res(habitData[0])
          } catch (err) {
                rej(`Error retrieving habits for user: ${err}`)
          }
@@ -68,41 +69,48 @@ class Habit {
                rej(`Error deleting habit for user: ${err}`)
          }
       })
-
-
    }
 
    static update(id,data){
       return new Promise(async (res, rej) => {
          try {
-               const db = await init()
-               console.log(data,data.today)
-               const habitToUpdate = await getHabitById(id)
+            const db = await init()
+            const habitToUpdate = await this.getHabitById(id)
 
-               if (data.today > habitToUpdate.finishDate){ 
-                     const dataToUpdate = { outOfWeek: true }
-               } else {
-                     if( habitToUpdate.currentStreak+1 > habitToUpdate.topStreak && habitToUpdate.currentStreak+1 === habitToUpdate.frequency){
-                        const dataToUpdate = {
-                              currentStreak: currentStreak+1,
-                              topStreak : currentStreak+1,
-                              complete : true
-                        }
-                     } else if (habitToUpdate.currentStreak+1 > habitToUpdate.topStreak && habitToUpdate.currentStreak+1 < habitToUpdate.frequency ) {
-                        const dataToUpdate = {
-                              currentStreak: currentStreak+1,
-                              topStreak : currentStreak+1,
-                        }
-                     } else if ( habitToUpdate.currentStreak+1 <= habitToUpdate.topStreak ) {
-                        const dataToUpdate = {
-                              currentStreak: currentStreak+1
-                        }
+            let now= new Date().getTime()
+            let today= new Date(now).toUTCString().slice(0,16)
+            if( habitToUpdate.lastUpdate == today) {
+               throw new Error('Already updated today')
+            }
+            let dataToUpdate = {}
+            if (data.today > habitToUpdate.finishDate){ 
+                  dataToUpdate = { outOfWeek: true }    
+            } else {
+                  if( habitToUpdate.currentStreak+1 > habitToUpdate.topStreak && habitToUpdate.currentStreak+1 == habitToUpdate.frequency){
+                     dataToUpdate = {
+                        lastUpdate : today,
+                        currentStreak: habitToUpdate.currentStreak+1,
+                        topStreak : habitToUpdate.currentStreak+1,
+                        complete: true
                      }
-               }
-
-               const usersData = await db.collection('habits').updateOne({"_id": ObjectId(id)},{ $set: { ...dataToUpdate} })
-               res(usersData)
-               
+                  } else if (habitToUpdate.currentStreak+1 > habitToUpdate.topStreak && habitToUpdate.currentStreak+1 < habitToUpdate.frequency ) {
+                     dataToUpdate = {
+                        lastUpdate : today,
+                        currentStreak: habitToUpdate.currentStreak+1,
+                        topStreak : habitToUpdate.currentStreak+1,
+                     }
+                  } else if ( habitToUpdate.currentStreak+1 < habitToUpdate.topStreak ) { 
+                     dataToUpdate = {
+                        lastUpdate : today,
+                        currentStreak: habitToUpdate.currentStreak+1
+                     }
+                  }
+            }
+            const usersData = await db.collection('habits').updateOne(
+               { _id: ObjectId(id) },
+               { $set: dataToUpdate }
+            )  
+            res(usersData)
          } catch (err) {
                rej(`Error updating habit for user: ${err}`)
          }
