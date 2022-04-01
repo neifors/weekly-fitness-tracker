@@ -24,6 +24,7 @@
 - Runs db migrations
 - Seeds db for development
 - Serves api on `localhost:3000`
+- Run client/index.html in liveserver (or open in browser)
 
 Note: Press `Ctrl` + `C` to terminate the docker container
 
@@ -117,7 +118,7 @@ This server is continuosly deployed at  -->
 
 ```json
 {
-  "username": "Frank",
+  "email": "Frank",
   "password": "frank_password"
 }
 ```
@@ -127,29 +128,15 @@ This server is continuosly deployed at  -->
 | **URL**          | **HTTP Verb** | **Action** |
 | ---------------- | ------------- | ---------- |
 | /users           | GET           | index      |
-| /users/:username | GET           | show       |
+
 
 ## Score Routes
 
 | **URL**                             | **HTTP Verb** | **Action**      |
 | ----------------------------------- | ------------- | --------------- |
-| /scores                             | GET           | index           |
-| /scores/username/:username          | GET           | show            |
-| /scores/cat/:cat                    | GET           | show            |
-| /scores/username/:username/cat/:cat | GET           | show            |
-| /scores/leadersboard                | GET           | show            |
-| /scores/post                        | POST/PATCH    | create & update |
-| /scores/username/:username          | DELETE        | destroy         |
+| /habits/:username                   | GET           | index           |
 
-#### Body for the score POST request
 
-```json
-{
-  "username": "Frank",
-  "cat": "science fiction",
-  "score": 28
-}
-``` -->
 
 ![homepage](https://i.ibb.co/687JsCR/homepage.png) 
 ![created habits](https://i.ibb.co/WnWpkpG/created-habits.png) ![incomplete&outofweek](https://i.ibb.co/gPwL73f/incomplete-outofweek.png) ![updated&complete](https://i.ibb.co/X3D2Lh0/updated-complete.png) !
