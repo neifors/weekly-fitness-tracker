@@ -76,16 +76,23 @@ This server is continuosly deployed at  -->
 - `habits`
 
 #### Habits schema example:
-<!-- 
+
 ```json
 {
-  "cat": "maths",
-  "username": "Frank",
-  "score": 20
+   "_id":"6246bef32f55b00637816987",
+   "username":"futureproof",
+   "habitName":"running",
+   "frequency":"7",
+   "notes":"Half an hour every day",
+   "startDate":1648797202189,
+   "finishDate":1649402002189,
+   "complete":false,
+   "currentStreak":1,
+   "topStreak":1,
+   "outOfWeek":false,
+   "lastUpdate":"Fri, 01 Apr 2022"
 }
 ```
-
-Note: To seed the two MongoDB collections hosted on Atlas, run `node insert-user-data.js` and `node insert-scores-data.js` from terminal.
 
 # Routes
 
@@ -100,8 +107,9 @@ Note: To seed the two MongoDB collections hosted on Atlas, run `node insert-user
 
 ```json
 {
-  "username": "new_username",
-  "password": "new_password"
+  "username": "futureproof",
+  "email": "futureproof@gmail.com",
+  "password": ""
 }
 ```
 
@@ -113,7 +121,7 @@ Note: To seed the two MongoDB collections hosted on Atlas, run `node insert-user
   "password": "frank_password"
 }
 ```
-
+<!--
 ## User Routes
 
 | **URL**          | **HTTP Verb** | **Action** |
