@@ -24,6 +24,7 @@
 - Runs db migrations
 - Seeds db for development
 - Serves api on `localhost:3000`
+- Run client/index.html in liveserver (or open in browser)
 
 Note: Press `Ctrl` + `C` to terminate the docker container
 
@@ -76,16 +77,22 @@ This server is continuosly deployed at  -->
 - `habits`
 
 #### Habits schema example:
-<!-- 
+
 ```json
 {
-  "cat": "maths",
-  "username": "Frank",
-  "score": 20
-}
-```
+  "_id":"6246d9531ad56fbbe6fe017c",
+  "username":"mike","habitName":"walking",
+  "frequency":"4","notes":"Hello",
+  "startDate":1648809674963,
+  "finishDate":1649414474963,
+  "complete":false,
+  "currentStreak":1,
+  "topStreak":1,
+  "outOfWeek":false,
+  "lastUpdate":"Fri, 01 Apr 2022"
+  
+  }
 
-Note: To seed the two MongoDB collections hosted on Atlas, run `node insert-user-data.js` and `node insert-scores-data.js` from terminal.
 
 # Routes
 
@@ -101,6 +108,7 @@ Note: To seed the two MongoDB collections hosted on Atlas, run `node insert-user
 ```json
 {
   "username": "new_username",
+  "email": "new_email",
   "password": "new_password"
 }
 ```
@@ -109,7 +117,7 @@ Note: To seed the two MongoDB collections hosted on Atlas, run `node insert-user
 
 ```json
 {
-  "username": "Frank",
+  "email": "Frank",
   "password": "frank_password"
 }
 ```
@@ -119,29 +127,15 @@ Note: To seed the two MongoDB collections hosted on Atlas, run `node insert-user
 | **URL**          | **HTTP Verb** | **Action** |
 | ---------------- | ------------- | ---------- |
 | /users           | GET           | index      |
-| /users/:username | GET           | show       |
+
 
 ## Score Routes
 
 | **URL**                             | **HTTP Verb** | **Action**      |
 | ----------------------------------- | ------------- | --------------- |
-| /scores                             | GET           | index           |
-| /scores/username/:username          | GET           | show            |
-| /scores/cat/:cat                    | GET           | show            |
-| /scores/username/:username/cat/:cat | GET           | show            |
-| /scores/leadersboard                | GET           | show            |
-| /scores/post                        | POST/PATCH    | create & update |
-| /scores/username/:username          | DELETE        | destroy         |
+| /habits/:username                   | GET           | index           |
 
-#### Body for the score POST request
 
-```json
-{
-  "username": "Frank",
-  "cat": "science fiction",
-  "score": 28
-}
-``` -->
 
 ![homepage](https://i.ibb.co/687JsCR/homepage.png) 
 ![created habits](https://i.ibb.co/WnWpkpG/created-habits.png) ![incomplete&outofweek](https://i.ibb.co/gPwL73f/incomplete-outofweek.png) ![updated&complete](https://i.ibb.co/X3D2Lh0/updated-complete.png) !
