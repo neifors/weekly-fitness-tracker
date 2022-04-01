@@ -1,0 +1,202 @@
+main {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+
+
+main div#buttons-wrapper{
+
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+
+main div#logo-wrapper {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+
+main div#logo-wrapper img{
+   width: 350px;
+   padding: 30px;
+}
+
+
+main div#buttons-wrapper #login-button{
+   color: green;
+   border-radius: 90%;
+   padding: 10px;
+}
+
+main div#buttons-wrapper #login-button:hover {
+   transform: scale(1.5) perspective(1px)
+}
+
+main div#buttons-wrapper #register-button{
+   color: green;
+   border-radius: 90%;
+   padding: 10px;
+}
+
+main div#buttons-wrapper #register-button:hover{
+   transform: scale(1.5) perspective(1px)
+}
+main div#buttons-wrapper h3#question {
+   font-family: 'Gloria Hallelujah', cursive;
+   font-size: 30px;
+}
+
+form#login-form {
+ display: flex;
+ flex-direction: column;
+}
+
+form#register-form {
+   display: flex;
+   flex-direction: column;
+}
+
+
+
+
+
+/* PROFILE CSS */
+
+main h1#hello-user {
+   font-family: 'Palette Mosaic', cursive;
+}
+
+main div#profile-top-div {
+   display: flex;
+   justify-content: space-around;
+}
+
+main button#add-habit-button {
+   color: green;
+   border-radius: 90%;
+   padding: 10px;
+   margin: 20px;
+}
+
+main button#logout-button {
+   color: green;
+   border-radius: 90%;
+   padding: 10px;
+   margin: 20px;
+}
+
+main button#add-habit-button:hover {
+   transform: scale(1.5) perspective(1px)
+}
+
+main button#logout-button:hover {
+   transform: scale(1.5) perspective(1px)
+}
+
+main div#habits-wrapper {
+   display: flex;
+   justify-content: center;
+   flex-direction: column-reverse;
+   flex-wrap: wrap;
+}
+
+main div#habits-wrapper div.habit-card{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   border: 2px solid black;
+   margin: 20px;
+   width: 300px;
+   position: relative;
+   text-align: center;
+}
+
+main div#habits-wrapper div.habit-card button.close-button {
+   position: absolute;
+   right: 10px;
+   top: 10px;
+}
+
+main div#habits-wrapper div.habit-card button.habit-update-button {
+   color: green;
+   border-radius: 90%;
+   padding: 10px;
+   margin: 20px;
+}
+
+main div#habits-wrapper div.habit-card button.habit-update-button:hover {
+   transform: scale(1.5) perspective(1px)
+}
+
+div.card {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+
+form#login-form {
+   display: flex;
+   flex-direction: column;
+   margin: 10px;
+}
+
+form input.passStyle {
+   margin-top: 10px;
+   margin-bottom: 10px;
+
+}
+
+h3#signin-title {
+   font-family: 'Gloria Hallelujah', cursive;
+}
+
+h4#are-you-new {
+   font-family: 'Gloria Hallelujah', cursive;
+}
+
+main div.card .back-button{
+   color: green;
+   border-radius: 90%;
+   padding: 10px;
+}
+
+main div.card .back-button:hover {
+   transform: scale(1.5) perspective(1px)
+}
+
+main div.card .submit-button {
+   color: green;
+   border-radius: 90%;
+   padding: 10px;
+}
+
+main div.card .submit-button {
+   transform: scale(1.5) perspective(1px)
+}
+
+main div.card #register-button {
+   color: green;
+   border-radius: 90%;
+   padding: 10px;
+}
+
+main div.card #register-button:hover {
+   transform: scale(1.5) perspective(1px)
+}
+
+main div.card .login-button {
+   color: green;
+   border-radius: 90%;
+   padding: 10px;
+}
+
+main div.card .login-button:hover {
+   transform: scale(1.5) perspective(1px)
+}
+
