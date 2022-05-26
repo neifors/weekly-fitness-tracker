@@ -122,7 +122,7 @@ async function updateHabit(h){
          'Content-Type': 'application/json'
       }
    }
-   const result = await fetch(`http://localhost:3000/habits/${h._id}`, options)
+   const result = await fetch(`https://weekly-fitness-tracker-server.herokuapp.com/habits/${h._id}`, options)
    const resultData = await result.json()
    console.log(resultData)
    window.location.reload()
@@ -139,7 +139,7 @@ async function destroy(h) {
             'Content-Type': 'application/json'
          }
       }
-      await fetch(`http://localhost:3000/habits/${h._id}`, options);
+      await fetch(`https://weekly-fitness-tracker-server.herokuapp.com/habits/${h._id}`, options);
       window.location.reload()
 
   } catch (err) {
@@ -149,7 +149,7 @@ async function destroy(h) {
 
 async function getUserHabits(username){
    try {
-       const response = await fetch(`http://localhost:3000/habits/${username}`);
+       const response = await fetch(`https://weekly-fitness-tracker-server.herokuapp.com/habits/${username}`);
        const data = await response.json()
        return data;
    } catch (err) {
@@ -273,7 +273,7 @@ async function requestPostHabit(e){
          }
       }
 
-      const newHabit = await fetch('http://localhost:3000/habits', options);
+      const newHabit = await fetch('https://weekly-fitness-tracker-server.herokuapp.com/habits', options);
       const data = await newHabit.json()
       if (data.err){ throw new Error(`${data.err}`)}
       window.location.hash = "#profile"

@@ -150,7 +150,7 @@ function renderRegisterForm() {
             'Content-Type': 'application/json'
          }
       }
-      await fetch('http://localhost:3000/users', options)
+      await fetch('https://weekly-fitness-tracker-server.herokuapp.com/users', options)
          .then(res=> {
             if (res.status==500){
                errMsg.textContent=`Username ${userN} is available`
