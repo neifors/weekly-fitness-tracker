@@ -31,23 +31,21 @@ main div#buttons-wrapper{
 }
 
 main div#buttons-wrapper #login-button{
-   color: green;
+   color: black;
    padding: 10px;
 }
 
 main div#buttons-wrapper #login-button:hover {
-   transform: scale(1.1);
-   background-color: rgb(33, 52, 223);
+   color: green;
 }
 
 main div#buttons-wrapper #register-button{
-   color: green;
-   border-radius: 90%;
+   color: black;
    padding: 10px;
 }
 
 main div#buttons-wrapper #register-button:hover{
-   transform: scale(1.5) perspective(1px)
+   color:green;
 }
 main div#buttons-wrapper h3#question {
    font-family: 'Gloria Hallelujah', cursive;

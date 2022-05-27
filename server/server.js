@@ -16,14 +16,7 @@ server.use("/auth", authRoutes);
 server.use(express.static(path.join(__dirname, "client")))
 
 server.get('/', (req, res)=>{
-    res.json('Hello world')
-})
-server.get('/home', (req, res)=>{
     res.sendFile('index.html',{root: 'client'})
 })
-
-console.log(path.resolve('index.html'))
-console.log(__dirname+ path.resolve('../client/index.html'))
-
 
 module.exports= server;
