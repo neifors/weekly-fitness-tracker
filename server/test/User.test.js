@@ -1,4 +1,4 @@
-const User = require('../../../models/user') 
+const User = require('../../../models/User') 
 const { initConnection } = require('../../../db_config/dbConfig')
 
 describe('User', () => {
