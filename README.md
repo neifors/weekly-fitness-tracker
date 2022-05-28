@@ -1,6 +1,6 @@
 # Weekly Fitness Tracker
 
-[Now live here: https://weekly-fitness-tracker.netlify.app/] (https://weekly-fitness-tracker.netlify.app/)
+Now live here: https://weekly-fitness-tracker.netlify.app/ (https://weekly-fitness-tracker.netlify.app/)
 [Isabel](https://github.com/neifors), [Leanne](https://github.com/leannesobogun), [Mike](https://github.com/mwezn) and [Paul](https://github.com/PaulNKD)
 
 ## Table of Contents
