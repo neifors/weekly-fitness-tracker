@@ -1,5 +1,6 @@
 # Weekly Fitness Tracker
 
+[Now live here: https://weekly-fitness-tracker.netlify.app/] (https://weekly-fitness-tracker.netlify.app/)
 [Isabel](https://github.com/neifors), [Leanne](https://github.com/leannesobogun), [Mike](https://github.com/mwezn) and [Paul](https://github.com/PaulNKD)
 
 ## Table of Contents
@@ -11,7 +12,9 @@
 - Routes
 
 # Purpose of our app
-
+- The purpose of our app is to allow users to keep track of their habits 
+- The basic functionality is now working,
+- Frontend features to be added could include a calendar, a email reminder &/or a general improvement in the CSS.
 
 
 # Installation & Usage
