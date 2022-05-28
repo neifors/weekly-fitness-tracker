@@ -13,10 +13,10 @@ const habitsRoutes = require("./controllers/habits")
 server.use("/habits", habitsRoutes);
 server.use("/users", usersRoutes);
 server.use("/auth", authRoutes);
-server.use(express.static(path.join(__dirname, "client")))
+server.use(express.static(path.join(__dirname, "../client")))
 
 server.get('/', (req, res)=>{
-    res.sendFile('index.html',{root: 'client'})
-})
+    res.sendFile('index.html',{root: '../client'})
+}) //Serving the index page at localhost:3000
 
 module.exports= server;
