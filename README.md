@@ -32,7 +32,10 @@
 - Seeds db for development
 - Serves api on `localhost:3000`
 - Run client/index.html in liveserver (or open in browser)
-
+### If theres problems running startDev.sh (because of OS) ensure docker is installed on your system then
+  Manually type the following:
+   - For Linux OS: `docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up`
+   - For Windows OS: `docker compose -f docker-compose.yaml -f docker-compose.dev.yaml up`
 Note: Press `Ctrl` + `C` to terminate the docker container
 
 `bash _scripts/stop.sh`
