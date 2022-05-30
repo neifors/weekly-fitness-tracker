@@ -17,7 +17,7 @@ async function requestRegistration(e) {
          main.append(msg)
          throw new Error("passwords don't match")
       }
-      const result = await fetch('https://weekly-fitness-tracker-server.herokuapp.com/auth/register', options)
+      const result = await fetch('http://localhost:3000/auth/register', options)
       const data = await result.json()
       if(!data.msg){  throw new Error("Couldn't create user") }
       requestLogin(e);
@@ -40,7 +40,7 @@ async function requestLogin(e){
             'Content-Type': 'application/json'
          }
       }
-      const result = await fetch('https://weekly-fitness-tracker-server.herokuapp.com/auth/login', options)
+      const result = await fetch('http://localhost:3000/auth/login', options)
       const data = await result.json()
       if (data.err){
          const msg = document.createElement('p')
