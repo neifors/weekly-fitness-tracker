@@ -17,7 +17,7 @@ async function requestRegistration(e) {
          main.append(msg)
          throw new Error("passwords don't match")
       }
-      const result = await fetch('http://localhost:3000/auth/register', options)
+      const result = await fetch('https://localhost:3000/auth/register', options)
       const data = await result.json()
       if(!data.msg){  throw new Error("Couldn't create user") }
       requestLogin(e);
