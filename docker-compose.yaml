@@ -1,5 +1,6 @@
 version: '3'
 services:
+ 
   server:
     image: node:12.18.4
     environment: 
@@ -9,8 +10,9 @@ services:
       - db
     volumes:
       - type: bind
-        source: ./server
+        source: ./ ##copies entire directory including client, db & server folders to /code
         target: /code
+        
   db:
     image: mongo:4-focal
     volumes:
