@@ -17,6 +17,6 @@ server.use(express.static(path.join(__dirname, "../client")))
 
 server.get('/', (req, res)=>{
     res.sendFile('index.html',{root: '../client'})
-}) //Serving the index page at localhost:3000
+}) //Serving the index page at localhost:5000
 
 module.exports= server;
