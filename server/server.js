@@ -1,7 +1,12 @@
 const express=require('express');
 const cors= require('cors');
 const server=express();
-server.use(cors("*"));
+server.use(cors({
+                    origin: ["https://weekly-fitness-tracker.netlify.app"],
+                    methods: ["GET", "POST", "DELETE"],
+                    credentials: true,
+                    origin: true,
+                }));
 server.use(express.json());
 
 
