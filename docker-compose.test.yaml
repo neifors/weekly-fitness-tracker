@@ -5,7 +5,7 @@ services:
     working_dir: /code
     depends_on:
       - db
-    command: bash -c "npm install && npm test"
+    ##command: bash -c "cd server && npm install && npm test"
     tty: true
   db:
     container_name: debug_test_db

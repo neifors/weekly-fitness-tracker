@@ -1,12 +1,12 @@
-const User = require('../../../models/user') 
-const { initConnection } = require('../../../db_config/dbConfig')
+const User = require('../models/User') 
+const { initConnection } = require('../db_config/dbconfig')
 
 describe('User', () => {
     let connection;
     let db;
 
     beforeAll(async () => {
-        connection = await initConnection();
+        connection = await initConnection;
         db = await connection.db(process.env.DB_NAME);
     });
 

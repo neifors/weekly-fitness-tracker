@@ -49,7 +49,7 @@ class Habit {
          try {
                const db = await init()
                const newHabit = await db.collection('habits').insertOne(data)
-               console.log("This is the habit has been created into models/Habit.js")
+               console.log("This habit has been created into models/Habit.js")
                console.log(newHabit)
                res(`habit created succesfully`)
          } catch (err) {

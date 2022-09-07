@@ -1,15 +1,16 @@
 version: '3'
 services:
+  
   server:
     container_name: dev_api
     working_dir: /code
     ports: 
-      - 3000:3000
+      - 3000:3000 
     environment: 
       - PORT= 3000
     depends_on:
       - db
-    command: bash -c "npm install && npm start"
+    command: bash -c "cd server && npm install && npm start" ##cd into server (inside container) then npm i & start
 
   db:
     container_name: dev_db
