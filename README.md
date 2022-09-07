@@ -9,6 +9,7 @@
 - Technologies
 - Database Schema
 - Routes
+- Wins & Challenges
 
 # Purpose of our app
 
