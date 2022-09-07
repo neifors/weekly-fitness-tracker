@@ -38,7 +38,6 @@ async function requestLogin(e){
          body:JSON.stringify(Object.fromEntries(new FormData(e.target))), 
          headers:{
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://weekly-fitness-tracker.netlify.app',
          }
       }
       const result = await fetch('https://weekly-fitness-tracker-server.herokuapp.com/auth/login', options)
