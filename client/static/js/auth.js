@@ -37,7 +37,8 @@ async function requestLogin(e){
          method: 'POST',
          body:JSON.stringify(Object.fromEntries(new FormData(e.target))), 
          headers:{
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
          }
       }
       const result = await fetch('https://weekly-fitness-tracker-server.herokuapp.com/auth/login', options)
