@@ -1,10 +1,25 @@
 const express=require('express');
-const cors= require('cors');
+const cors = require('cors');
 const server=express();
 server.use(cors({
-    origin: "https://weekly-fitness-tracker.netlify.app",
-    methods: ["GET", "POST", "DELETE", "PUT"],
+    origin: 'https://weekly-fitness-tracker.netlify.app',
 }));
+
+// CORS config START
+// server.use((req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", "https://weekly-fitness-tracker.netlify.app")
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested, Content-Type, Accept Authorization")
+//     if (req.method === "OPTIONS") {
+//       res.header(
+//         "Access-Control-Allow-Methods",
+//         "POST, PUT, PATCH, GET, DELETE"
+//       )
+//       return res.status(200).json({})
+//     }
+//     next()
+// });
+// CORS config END
+
 server.use(express.json());
 
 

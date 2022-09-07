@@ -6,7 +6,8 @@ async function requestRegistration(e) {
          method: 'POST',
          body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
          headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Origin': 'https://weekly-fitness-tracker.netlify.app'
          }
       }
       if (e.target["password"].value !== e.target["passwordConfirmation"].value){
@@ -38,6 +39,7 @@ async function requestLogin(e){
          body:JSON.stringify(Object.fromEntries(new FormData(e.target))), 
          headers:{
             'Content-Type': 'application/json',
+            'Origin': 'https://weekly-fitness-tracker.netlify.app'
          }
       }
       const result = await fetch('https://weekly-fitness-tracker-server.herokuapp.com/auth/login', options)
